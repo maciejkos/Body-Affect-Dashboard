@@ -36,9 +36,15 @@ plot_extent.set(
 extent_init = plot_extent.get('current_extent');
 
 var scaleX = d3.time.scale().domain(extent_init).range([0,width]),
-    scaleY = d3.scale.linear().range([height,0]).domain([0, 168]);
-var x2 = d3.time.scale().range([0, width]),
-    y2 = d3.scale.linear().range([(height/4), 0]);
+    scaleY = d3.scale.linear().range([height,0]).domain([0, 168]),
+    x2 = d3.time.scale().range([0, width]),
+    y2 = d3.scale.linear().range([(height/4), 0]),
+    colorScale = d3.scale.linear().domain([0, 168]).range(["blue", "red"]),
+    radiusScale = d3.scale.linear().domain([1, 168]).range([1,10]);
+//whitish (0) to red(100)
+//.range(["#FFD3D3", "#f90000"]); //whitish (0) to red(100)
+//.range(["#c21500", "#ffc500"]); //yellow (0) to red(100)
+
 
 x2.domain(extent_init);
 y2.domain([0, 140]);
@@ -46,11 +52,6 @@ var brush = d3.svg.brush()
     .x(x2)
     .on('brushend', brushListener);
 //var colorScale = d3.scale.quantize()
-var colorScale = d3.scale.linear()
-    .domain([0, 100])
-    .range(["blue", "red"]); //whitish (0) to red(100)
-    //.range(["#FFD3D3", "#f90000"]); //whitish (0) to red(100)
-    //.range(["#c21500", "#ffc500"]); //yellow (0) to red(100)
 
 //Axis
 var axisX = d3.svg.axis()
@@ -367,7 +368,7 @@ function draw(_data) {
 
     yVar = plot_yVar.get('current_yVar');
     ColorVar = plotColorVar.get('current_plotColorVar');
-    console.log(ColorVar);
+    console.log(yVar);
     RadiusVar = plotRadiusVar.get('current_plotRadiusVar');
 
     //console.log(_data)
@@ -375,8 +376,15 @@ function draw(_data) {
     //    return d.hr
     //})
     //console.log(_data)
-    scaleY.domain([0, 168]);
+    yVarMax = d3.max(_data, function(d) { return d[yVar]; });
+    ColorVarMax = d3.max(_data, function(d) { return d[ColorVar]; });
+    RadiusVarMax = d3.max(_data, function(d) { return d[RadiusVar]; });
+    //console.log(radiusScale(RadiusVarMax));
+    //console.log(ColorVar);
+    scaleY.domain([0, yVarMax]);
+    colorScale.domain([0, ColorVarMax]);
     scaleX.domain(extent);
+    radiusScale.domain[(0,RadiusVarMax)];
 
     //console.log(start,d3.time.format("%Y-%m-%d")(start))
 
@@ -406,6 +414,10 @@ function draw(_data) {
     plot.select('.axis-x-hour')
         .attr('transform','translate(0,'+height+')')
         .call(axisXhour);
+
+    plot.select('.axis-y')
+        //.attr('transform','translate(0,'+height+')')
+        .call(axisY);
     //plot.select('.class','axis axis-y')
     //    .call(axisY);
     //plot.select('.axis-x-day')
@@ -455,12 +467,16 @@ function draw(_data) {
         //.attr('cy', function (d) {return scaleY(d.hr);})
         //.attr('r', '5');
         .attr('r', function(d){
-            if (d[RadiusVar]*0.1 < 1) {
-                return 1;
-            } else {return d[RadiusVar]*0.1 }})
-            //} else {return d.activation*0.1 }})
-        //.attr('r', 3);
-        //.style("opacity", d3.scale.linear(function(d){ return d.activation }));
+
+                //return d[RadiusVar]})
+                return radiusScale(d[RadiusVar]);})
+
+        //.attr('r', function(d){
+        //    if (d[RadiusVar]*0.1 < 1) {
+        //        return 1;
+        //    } else {return d[RadiusVar]*0.1 }});
+
+
 
 
     //plot.selectAll('.circles-data-point')
