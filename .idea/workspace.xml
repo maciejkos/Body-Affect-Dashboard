@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5d056644-db2c-4a1a-962d-1efc4cd2045f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/script/script4.js" afterPath="$PROJECT_DIR$/script/script4.js" />
     </list>
     <ignored path="_finalProject.iws" />
@@ -48,37 +47,38 @@
       <file leaf-file-name="script4.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/script/script4.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.88152176">
-              <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.073913045">
+              <caret line="440" column="58" selection-start-line="440" selection-start-column="58" selection-end-line="440" selection-end-column="58" />
               <folding>
-                <element signature="e#1411#1436#0" expanded="false" />
-                <element signature="e#2075#2089#0" expanded="false" />
-                <element signature="e#2724#2753#0" expanded="false" />
-                <element signature="e#2849#2877#0" expanded="false" />
-                <element signature="e#2921#2943#0" expanded="false" />
-                <element signature="e#3134#3158#0" expanded="false" />
-                <element signature="e#3852#5660#0" expanded="false" />
-                <element signature="e#5876#7920#0" expanded="false" />
-                <element signature="e#8143#10135#0" expanded="false" />
+                <element signature="e#1590#1615#0" expanded="false" />
+                <element signature="e#2257#2271#0" expanded="false" />
+                <element signature="e#3031#3059#0" expanded="false" />
+                <element signature="e#3103#3125#0" expanded="false" />
+                <element signature="e#3316#3340#0" expanded="false" />
+                <element signature="e#4034#5842#0" expanded="false" />
+                <element signature="e#6058#8102#0" expanded="false" />
+                <element signature="e#8325#10317#0" expanded="false" />
                 <element signature="n#!!block;n#queueData#0" expanded="false" />
                 <element signature="n#!!block;n#dataLoaded#0" expanded="false" />
-                <element signature="e#10477#10519#0" expanded="false" />
-                <element signature="e#10879#10899#0" expanded="false" />
-                <element signature="e#11334#11354#0" expanded="false" />
-                <element signature="e#11944#11955#0" expanded="false" />
-                <element signature="e#12130#12169#0" expanded="false" />
-                <element signature="e#12719#12756#0" expanded="false" />
-                <element signature="e#13687#13746#0" expanded="false" />
-                <element signature="e#14205#14232#0" expanded="false" />
-                <element signature="e#14316#14366#0" expanded="false" />
-                <element signature="e#14683#14722#0" expanded="false" />
+                <element signature="e#10659#10701#0" expanded="false" />
+                <element signature="e#11061#11081#0" expanded="false" />
+                <element signature="e#11516#11536#0" expanded="false" />
+                <element signature="e#12258#12269#0" expanded="false" />
+                <element signature="e#12444#12483#0" expanded="false" />
+                <element signature="e#13296#13333#0" expanded="false" />
+                <element signature="e#14264#14323#0" expanded="false" />
+                <element signature="e#14782#14809#0" expanded="false" />
+                <element signature="e#14893#14943#0" expanded="false" />
+                <element signature="e#15261#15300#0" expanded="false" />
                 <element signature="n#!!block;n#drawBrush#0" expanded="false" />
-                <element signature="e#15618#15650#0" expanded="false" />
+                <element signature="e#16196#16228#0" expanded="false" />
                 <element signature="n#!!block;n#brushListener#0" expanded="false" />
-                <element signature="e#18111#18136#0" expanded="false" />
-                <element signature="e#19228#19245#0" expanded="false" />
-                <element signature="e#19632#19712#0" expanded="false" />
-                <element signature="e#19791#19817#0" expanded="false" />
+                <element signature="e#17343#17372#0" expanded="false" />
+                <element signature="e#17831#17985#0" expanded="false" />
+                <element signature="e#17994#18037#0" expanded="false" />
+                <element signature="e#19806#19823#0" expanded="false" />
+                <element signature="e#20210#20290#0" expanded="false" />
+                <element signature="e#20369#20395#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -294,7 +294,13 @@
       <option name="project" value="LOCAL" />
       <updated>1449942394541</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="all variable selectors for plot work">
+      <created>1449947323845</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1449947323845</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -357,7 +363,8 @@
     <MESSAGE value="problems w/rescaling after brushing" />
     <MESSAGE value="brush works" />
     <MESSAGE value="variable selectors for plot work" />
-    <option name="LAST_COMMIT_MESSAGE" value="variable selectors for plot work" />
+    <MESSAGE value="all variable selectors for plot work" />
+    <option name="LAST_COMMIT_MESSAGE" value="all variable selectors for plot work" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -654,37 +661,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/script/script4.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.88152176">
-          <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.073913045">
+          <caret line="440" column="58" selection-start-line="440" selection-start-column="58" selection-end-line="440" selection-end-column="58" />
           <folding>
-            <element signature="e#1411#1436#0" expanded="false" />
-            <element signature="e#2075#2089#0" expanded="false" />
-            <element signature="e#2724#2753#0" expanded="false" />
-            <element signature="e#2849#2877#0" expanded="false" />
-            <element signature="e#2921#2943#0" expanded="false" />
-            <element signature="e#3134#3158#0" expanded="false" />
-            <element signature="e#3852#5660#0" expanded="false" />
-            <element signature="e#5876#7920#0" expanded="false" />
-            <element signature="e#8143#10135#0" expanded="false" />
+            <element signature="e#1590#1615#0" expanded="false" />
+            <element signature="e#2257#2271#0" expanded="false" />
+            <element signature="e#3031#3059#0" expanded="false" />
+            <element signature="e#3103#3125#0" expanded="false" />
+            <element signature="e#3316#3340#0" expanded="false" />
+            <element signature="e#4034#5842#0" expanded="false" />
+            <element signature="e#6058#8102#0" expanded="false" />
+            <element signature="e#8325#10317#0" expanded="false" />
             <element signature="n#!!block;n#queueData#0" expanded="false" />
             <element signature="n#!!block;n#dataLoaded#0" expanded="false" />
-            <element signature="e#10477#10519#0" expanded="false" />
-            <element signature="e#10879#10899#0" expanded="false" />
-            <element signature="e#11334#11354#0" expanded="false" />
-            <element signature="e#11944#11955#0" expanded="false" />
-            <element signature="e#12130#12169#0" expanded="false" />
-            <element signature="e#12719#12756#0" expanded="false" />
-            <element signature="e#13687#13746#0" expanded="false" />
-            <element signature="e#14205#14232#0" expanded="false" />
-            <element signature="e#14316#14366#0" expanded="false" />
-            <element signature="e#14683#14722#0" expanded="false" />
+            <element signature="e#10659#10701#0" expanded="false" />
+            <element signature="e#11061#11081#0" expanded="false" />
+            <element signature="e#11516#11536#0" expanded="false" />
+            <element signature="e#12258#12269#0" expanded="false" />
+            <element signature="e#12444#12483#0" expanded="false" />
+            <element signature="e#13296#13333#0" expanded="false" />
+            <element signature="e#14264#14323#0" expanded="false" />
+            <element signature="e#14782#14809#0" expanded="false" />
+            <element signature="e#14893#14943#0" expanded="false" />
+            <element signature="e#15261#15300#0" expanded="false" />
             <element signature="n#!!block;n#drawBrush#0" expanded="false" />
-            <element signature="e#15618#15650#0" expanded="false" />
+            <element signature="e#16196#16228#0" expanded="false" />
             <element signature="n#!!block;n#brushListener#0" expanded="false" />
-            <element signature="e#18111#18136#0" expanded="false" />
-            <element signature="e#19228#19245#0" expanded="false" />
-            <element signature="e#19632#19712#0" expanded="false" />
-            <element signature="e#19791#19817#0" expanded="false" />
+            <element signature="e#17343#17372#0" expanded="false" />
+            <element signature="e#17831#17985#0" expanded="false" />
+            <element signature="e#17994#18037#0" expanded="false" />
+            <element signature="e#19806#19823#0" expanded="false" />
+            <element signature="e#20210#20290#0" expanded="false" />
+            <element signature="e#20369#20395#0" expanded="false" />
           </folding>
         </state>
       </provider>

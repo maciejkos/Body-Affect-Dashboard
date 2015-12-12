@@ -40,6 +40,8 @@ var scaleX = d3.time.scale().domain(extent_init).range([0,width]),
     x2 = d3.time.scale().range([0, width]),
     y2 = d3.scale.linear().range([(height/4), 0]),
     colorScale = d3.scale.linear().domain([0, 168]).range(["blue", "red"]),
+    // Siqi - I tried with a white mid-point as you suggested but it does not look good
+    //colorScale = d3.scale.linear().domain([0, 89, 168]).range(["blue", "white", "red"]),
     radiusScale = d3.scale.linear().domain([1, 168]).range([1,10]);
 //whitish (0) to red(100)
 //.range(["#FFD3D3", "#f90000"]); //whitish (0) to red(100)
@@ -60,13 +62,13 @@ var axisX = d3.svg.axis()
     .innerTickSize(-height)
     //.tickSize(5)
     .ticks(d3.time.day)
-    //.tickFormat(d3.time.format('%m/%d'));
+    .tickFormat(d3.time.format('%a %m/%d'));
 
 var axisXhour = d3.svg.axis()
     .scale(scaleX)
     .orient('bottom')
     //.ticks(d3.time.hour)
-    .ticks(d3.time.hour, 2)
+    //.ticks(d3.time.hour, 2)
     .tickFormat(d3.time.format('%H-%M'))
 
 //.tickSize(5)
@@ -378,13 +380,16 @@ function draw(_data) {
     //console.log(_data)
     yVarMax = d3.max(_data, function(d) { return d[yVar]; });
     ColorVarMax = d3.max(_data, function(d) { return d[ColorVar]; });
+    //ColorVarMed = d3.median(_data, function(d) { return d[ColorVar]; });
     RadiusVarMax = d3.max(_data, function(d) { return d[RadiusVar]; });
     //console.log(radiusScale(RadiusVarMax));
     //console.log(ColorVar);
     scaleY.domain([0, yVarMax]);
     colorScale.domain([0, ColorVarMax]);
-    scaleX.domain(extent);
+    //colorScale.domain([0, ColorVarMed, ColorVarMax]);
     radiusScale.domain[(0,RadiusVarMax)];
+    scaleX.domain(extent);
+
 
     //console.log(start,d3.time.format("%Y-%m-%d")(start))
 
@@ -408,12 +413,20 @@ function draw(_data) {
 
 
     plot.select('.axis-x-day')
-        .attr('transform','translate(0,'+height+')')
+        //.attr('transform','translate(0,'+height+')')
         .call(axisX);
 
     plot.select('.axis-x-hour')
-        .attr('transform','translate(0,'+height+')')
+        //.attr('transform','translate(0,'+height+')')
+        //.selectAll('text')
+        //.attr('transform','rotate(90)translate(0,0)')
         .call(axisXhour);
+
+    plot.select('.axis-x-hour')
+        .selectAll('text')
+        .attr('transform','rotate(90)')
+        .attr('transform','translate(0,10)');
+        //.call(axisXhour);
 
     plot.select('.axis-y')
         //.attr('transform','translate(0,'+height+')')
@@ -469,7 +482,7 @@ function draw(_data) {
         .attr('r', function(d){
 
                 //return d[RadiusVar]})
-                return radiusScale(d[RadiusVar]);})
+                return radiusScale(d[RadiusVar]);});
 
         //.attr('r', function(d){
         //    if (d[RadiusVar]*0.1 < 1) {
