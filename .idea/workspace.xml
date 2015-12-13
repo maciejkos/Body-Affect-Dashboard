@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5d056644-db2c-4a1a-962d-1efc4cd2045f" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/Merge3.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data/merged7days (1).csv" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/merged7days.csv" afterPath="$PROJECT_DIR$/data/merged7days.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/script/script4.js" afterPath="$PROJECT_DIR$/script/script4.js" />
     </list>
     <ignored path="_finalProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -307,7 +302,13 @@
       <option name="project" value="LOCAL" />
       <updated>1449954446343</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="let's add context (TODO)">
+      <created>1449969644275</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1449969644275</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
