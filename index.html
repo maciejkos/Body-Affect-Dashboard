@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<script src="script/jquery-1.11.3.min.js"></script>
+		<script src="lib/crossfilter.min.js"></script>
 		<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic' rel='stylesheet' type='text/css'>
         <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
 		<link href="style.css" rel="stylesheet"/>
@@ -14,15 +15,9 @@
 
 
 		<div class="container">
-			<div>
-				<h2> <b> x-axis:</b> time (over 1 week) </h2>
-				<h2> <b> y-axis:</b> heart rate </h2>
-				<h2> <b> size:</b> emotion (larger -> more intensive) </h2>
-				<h2> <b> color: </b> emotion (more red -> more positive) </h2>
-			</div>
-
+		<h1>Body.Affect.Dashboard </h1>
 			<!--<h1>Week 8 Exercise 1: Draw Line Graph</h1>-->
-			<h1>Choose y-axis variable</h1>
+			<h2>Choose y-axis variable</h2>
 			<div class="btnsgraph">
 				<a href="#2" class="btn btn-default y-axis" data=heart_rate id="heart_rate">heart rate</a>
 			<a href="#2" class="btn btn-default y-axis" data=skin_temp id="skin_temp">skin temp</a>
@@ -43,7 +38,7 @@
 			<a href="#2" class="btn btn-default y-axis" data=hunger   id="hunger">hunger  </a>
 		</div>
 
-			<h1>Choose color variable</h1>
+			<h2>Choose color variable</h2> blue-> red
 			<div class="btnsgraph1">
 				<a href="#2" class="btn btn-default color" data=heart_rate id="heart_rate">heart rate</a>
 				<a href="#2" class="btn btn-default color" data=skin_temp id="skin_temp">skin temp</a>
@@ -63,11 +58,7 @@
 				<a href="#2" class="btn btn-default color" data=energy   id="energy">energy  </a>
 				<a href="#2" class="btn btn-default color" data=hunger   id="hunger">hunger  </a>
 			</div>
-			<h1>Choose radius variable</h1>
-			<label>
-				Make the smallest data-points more visible? (TODO)
-
-			</label>
+			<h2>Choose radius variable</h2>
 
 			<div class="btnsgraph2">
 				<a href="#2" class="btn btn-default size" data=heart_rate id="heart_rate">heart rate</a>

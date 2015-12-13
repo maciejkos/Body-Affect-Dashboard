@@ -321,6 +321,9 @@ d3.selectAll('.size').on('click',function(){
 
 });
 
+
+
+
 //Import data with queue
 function queueData() {
 
@@ -344,6 +347,8 @@ function dataLoaded(error, heartRate){
     //console.log(heartRate);
     //var maxHR = d3.max(pop);
     //scaleR.domain([0,maxPop]);
+
+
     dataset = heartRate;
     draw(heartRate);
     drawBrush(heartRate);
@@ -370,7 +375,7 @@ function draw(_data) {
 
     yVar = plot_yVar.get('current_yVar');
     ColorVar = plotColorVar.get('current_plotColorVar');
-    console.log(yVar);
+    //console.log(yVar);
     RadiusVar = plotRadiusVar.get('current_plotRadiusVar');
 
     //console.log(_data)
@@ -440,6 +445,34 @@ function draw(_data) {
     //    .selectAll('text')
     //    .attr('transform','rotate(90)translate(-60,0)');
 
+    var lines = plot_main.selectAll('.laneLines').data(_data, function (d) {
+        return d.date;
+    });
+
+    var lines_enter = lines.enter().append('line').attr('class', 'laneLines');
+
+    var lines_exit = lines.exit().remove();
+
+        lines
+            .attr('x1', function(d, i){
+
+                if (i >0) {
+                    console.log("previous", lines.data()[i + 1].date);
+                }
+                console.log("now", d.date);
+                return scaleX(d.date)})
+            .attr('y1', height)
+            .attr('x2', function(d){return scaleX(d.date)})
+            .attr('y2', 0)
+            .attr('stroke', "#EBEBEB")
+
+            .attr('stroke-width', function(d){
+                time = moment(d.date, '%ddd %MMM %D %YYYY %H:%mm:%S%Z');
+
+                if (time.hour() >7 && time.hour() <23 ){
+                    return 0;
+                } else { return 1;}
+            } );
 
     var nodes = plot_main.selectAll('.circles-data-point').data(_data, function (d) {
         return d.date;
@@ -461,6 +494,7 @@ function draw(_data) {
     // transitions
     nodes
         .attr('fill', function (d) {return colorScale(d[ColorVar]);})
+        .attr('location', function (d) { return d.location; })
         .transition().duration(200).attr('cx', function (d) {
             //Thu Nov 26 2015 05:30:00 GMT-0500 (Eastern Standard Time)
             //if (moment(d.date).isAfter(start) && moment(d.date).isBefore(end)){
@@ -600,37 +634,6 @@ function brushListener() {
 
 
 }
-//function updateData() {
-//    //newStartDate = new Date(2015,10,29,10);
-//    //scaleX.domain([newStartDate], endDate);
-//    //plot.select('axis axis-x-hour').call(scaleX);
-//    // Get the data again
-//    d3.tsv("data/data-alt.tsv", function(error, data) {
-//        data.forEach(function(d) {
-//            d.date = parseDate(d.date);
-//            d.close = +d.close;
-//        });
-//
-//        // Scale the range of the data again
-//        x.domain(d3.extent(data, function(d) { return d.date; }));
-//        y.domain([0, d3.max(data, function(d) { return d.close; })]);
-//
-//        // Select the section we want to apply our changes to
-//        var svg = d3.select("body").transition();
-//
-//        // Make the changes
-//        svg.select(".line")   // change the line
-//            .duration(750)
-//            .attr("d", valueline(data));
-//        svg.select(".x.axis") // change the x axis
-//            .duration(750)
-//            .call(xAxis);
-//        svg.select(".y.axis") // change the y axis
-//            .duration(750)
-//            .call(yAxis);
-//
-//    });
-//}
 
 function parse(d){
 
@@ -687,16 +690,4 @@ function parse(d){
     }
 }
 
-//function filterData(data, criterion, lower, upper){
-//// filters data based on criterion and its lower and upper bounds
-//                //    var _properties = []
-//                //    for(var name in data[0]) {
-//                //        //console.log(name);
-//                //        properties.push(name);
-//                //        //var value = data[0][name];
-//                //        //console.log(value);
-//                //    }
-//                //    //console.log(data);
-//    return function(d){
-//       console.log(d);
-//    }
+
