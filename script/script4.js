@@ -40,7 +40,7 @@ var scaleX = d3.time.scale().domain(extent_init).range([0,width]),
     x2 = d3.time.scale().range([0, width]),
     y2 = d3.scale.linear().range([(height/4), 0]),
     colorScale = d3.scale.linear().domain([0, 168]).range(["blue", "red"]),
-    // Siqi - I tried with a white mid-point as you suggested but it does not look good
+   // Siqi - I tried with a white mid-point as you suggested but it does not look good
     //colorScale = d3.scale.linear().domain([0, 89, 168]).range(["blue", "white", "red"]),
     radiusScale = d3.scale.linear().domain([1, 168]).range([1,10]);
 //whitish (0) to red(100)
@@ -69,8 +69,7 @@ var axisXhour = d3.svg.axis()
     .orient('bottom')
     //.ticks(d3.time.hour)
     //.ticks(d3.time.hour, 2)
-    .tickFormat(d3.time.format('%H-%M'))
-
+    .tickFormat(d3.time.format('%H-%M'));
 //.tickSize(5)
 //.ticks(d3.time.week)
 //.tickFormat(d3.time.format('%Y-%m-%d'));
@@ -445,34 +444,32 @@ function draw(_data) {
     //    .selectAll('text')
     //    .attr('transform','rotate(90)translate(-60,0)');
 
-    var lines = plot_main.selectAll('.laneLines').data(_data, function (d) {
-        return d.date;
-    });
 
-    var lines_enter = lines.enter().append('line').attr('class', 'laneLines');
+    var nightLines = plot_main.selectAll('.nightLaneLines').data(_data, function (d) {
+            return d.date;
+        });
 
-    var lines_exit = lines.exit().remove();
+        var lines_enter = nightLines.enter().append('line').attr('class', 'nightLaneLines');
 
-        lines
-            .attr('x1', function(d, i){
+        var lines_exit = nightLines.exit().remove();
 
-                if (i >0) {
-                    console.log("previous", lines.data()[i + 1].date);
-                }
-                console.log("now", d.date);
-                return scaleX(d.date)})
-            .attr('y1', height)
-            .attr('x2', function(d){return scaleX(d.date)})
-            .attr('y2', 0)
-            .attr('stroke', "#EBEBEB")
+            nightLines
+                .attr('x1', function(d){
+                    return scaleX(d.date)})
+                .attr('y1',  function(d){
+                    time = moment(d.date, '%ddd %MMM %D %YYYY %H:%mm:%S%Z');
 
-            .attr('stroke-width', function(d){
-                time = moment(d.date, '%ddd %MMM %D %YYYY %H:%mm:%S%Z');
+                    if (time.hour() >7 && time.hour() <23 ){
+                        return 0;
+                    } else { return height;}})
+                //.attr('y1', height)
+                .attr('x2', function(d){return scaleX(d.date)})
+                .attr('y2', 0)
+                .attr('stroke', "#EBEBEB")
 
-                if (time.hour() >7 && time.hour() <23 ){
-                    return 0;
-                } else { return 1;}
-            } );
+                .attr('stroke-width', '1');
+
+
 
     var nodes = plot_main.selectAll('.circles-data-point').data(_data, function (d) {
         return d.date;
@@ -523,6 +520,47 @@ function draw(_data) {
         //        return 1;
         //    } else {return d[RadiusVar]*0.1 }});
 
+    node_enter
+        .on("mouseenter", function(d) {
+            var dateParser = d3.time.format('%a %m/%d %H:%M');
+            d3.select(this).style('opacity', 1);
+            var tooltip = d3.select(".custom-tooltip");
+            tooltip.transition().style("opacity", 1);
+            tooltip.select("#hr").html(d.hr);
+            tooltip.select("#skin_temp").html(d.temp);
+            tooltip.select("#steps").html(d.steps);
+            tooltip.select("#intensity").html(d.activation);
+            tooltip.select("#valence").html(d.valence);
+            tooltip.select("#calories").html(d.calories);
+            tooltip.select("#anxiety").html(d.anxiety_2);
+            tooltip.select("#fear").html(d.fear);
+            tooltip.select("#envy").html(d.envy);
+            tooltip.select("#anticipation").html(d.anticipation);
+            tooltip.select("#love").html(d.love);
+            tooltip.select("#anger").html(d.anger);
+            tooltip.select("#sadness").html(d.sadness);
+            tooltip.select("#excitement").html(d.excitement);
+            tooltip.select("#frustration").html(d.frustration);
+            tooltip.select("#energy").html(d.energy);
+            tooltip.select("#hunger").html(d.hunger);
+            tooltip.select("#activity").html(d.activation);
+            tooltip.select("#location").html(d.location);
+            tooltip.select("#date").html(dateParser(d.date));
+            //console.log("tooltip!");
+         })
+        .on("mouseleave", function(d){
+            d3.select(".custom-tooltip").transition() //hide data from the tooltip
+                .style("opacity",0);
+        })
+        .on("mousemove", function(d){
+            d3.select(this).style('opacity',1);
+            var xy = d3.mouse(document.getElementById("plot")); // tooltip to move with mouse movements
+            var left = xy[0],
+                top = xy[1];
+            d3.select(".custom-tooltip")
+                .style("left", left+50+ "px")
+                .style("top", top +400+ "px")
+        });
 
 
 

@@ -72,3 +72,22 @@ p{
          fill-opacity: .125;
          shape-rendering: crispEdges;
      }
+/*-----------tooltip-----------*/
+.canvas .custom-tooltip, .canvas .custom-tooltip2 {
+    position:absolute;
+    border:1px solid #fff;
+    width:300px;
+    min-height:10px;
+    padding:10px 12px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.2), 0 -3px 7px rgba(0, 0, 0, 0.1);
+    font-family: "MaisonNeue",sans-serif;
+    font-size:12px;
+    fill: #666666 !important;
+}
+.dataDescription {
+    font-weight: normal
+}.dataValue {
+    font-weight: bold
+}
