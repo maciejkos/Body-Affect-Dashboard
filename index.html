@@ -1,130 +1,192 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<script src="script/jquery-1.11.3.min.js"></script>
-		<script src="lib/crossfilter.min.js"></script>
-		<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic' rel='stylesheet' type='text/css'>
-        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
-		<link href="style.css" rel="stylesheet"/>
-		<!--<link href="style2.css" rel="stylesheet"/>-->
-	</head>
-	<body>
+<head>
+    <meta charset="utf-8">
+    <script src="script/jquery-1.11.3.min.js"></script>
+    <script src="lib/crossfilter.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic' rel='stylesheet' type='text/css'>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="style.css" rel="stylesheet"/>
+</head>
+<body>
 
-	<div class="jumbotron">
-		<div class="container">
-			<h1>Body.Affect.Dashboard </h1> (v0.03)
-			<p>B.A.D. is an exploratory tool for physiological, affect and context data. The data visualized below was collected using <a href="http://www.mybasis.com/">Basis Peak</a> and my experience sampling survey deployed on <a href="https://xs.movisens.com/">movisensXS.</a> </p>
-			<p><a class="btn btn-primary btn-lg" href="https://pl.linkedin.com/in/maciejkos" role="button">Learn more about the author »</a></p>
-		</div>
-	</div>
+<div class="jumbotron">
+    <div class="container">
+        <h1>Body.Affect.Dashboard </h1> (v0.03)
+        <p>B.A.D. is an exploratory tool for physiological, affect and context data. The data visualized below was
+            collected using <a href="http://www.mybasis.com/">Basis Peak</a> and my experience sampling survey deployed
+            on <a href="https://xs.movisens.com/">movisensXS.</a></p>
 
-		<div class="container">
-			<div class="row">
-			<div class="col-md-2"><p>Radius variable</p></div>
-			<div class="col-md-10">
-			<div class="btnsgraph2">
-				<a href="#2" class="btn btn-default btn-xs size" data=heart_rate id="heart_rate">heart rate</a>
-				<a href="#2" class="btn btn-default btn-xs size" data=skin_temp id="skin_temp">skin temp</a>
-				<a href="#2" class="btn btn-default btn-xs size" data=steps id="steps">steps</a>
-				<a href="#2" class="btn btn-default btn-xs size" data=intensity id="intensity">intensity</a>
-				<a href="#2" class="btn btn-default btn-xs size" data=valence id="valence">valence</a>
-				<a href="#2" class="btn btn-default btn-xs size" data=calories id="calories">calories</a>
-				<a href="#2" class="btn btn-default btn-xs size" data=anxiety id="anxiety">anxiety</a>
-				<a href="#2" class="btn btn-default btn-xs size" data=fear  id="fear">fear</a>
-				<a href="#2" class="btn btn-default btn-xs size" data=love   id="love">love  </a>
-				<a href="#2" class="btn btn-default btn-xs size" data=anger  id="anger">anger </a>
-				<a href="#2" class="btn btn-default btn-xs size" data=sadness  id="sadness">sadness </a>
-				<a href="#2" class="btn btn-default btn-xs size" data=excitement  id="excitement">excitement </a>
-				<a href="#2" class="btn btn-default btn-xs size" data=frustration   id="frustration">frustration  </a>
-				<a href="#2" class="btn btn-default btn-xs size" data=energy   id="energy">energy  </a>
-				<a href="#2" class="btn btn-default btn-xs size" data=hunger   id="hunger">hunger  </a>
-			</div>
-			</div>
-		</div>
-			<div class="row">
-			<div class="col-md-2"><p>Color variable</p></div>
-			<div class="col-md-10">
-			<div class="btnsgraph1">
-				<a href="#2" class="btn btn-default btn-xs color" data=heart_rate id="heart_rate">heart rate</a>
-				<a href="#2" class="btn btn-default btn-xs color" data=skin_temp id="skin_temp">skin temp</a>
-				<a href="#2" class="btn btn-default btn-xs color" data=steps id="steps">steps</a>
-				<a href="#2" class="btn btn-default btn-xs color" data=intensity id="intensity">intensity</a>
-				<a href="#2" class="btn btn-default btn-xs color" data=valence id="valence">valence</a>
-				<a href="#2" class="btn btn-default btn-xs color" data=calories id="calories">calories</a>
-				<a href="#2" class="btn btn-default btn-xs color" data=anxiety id="anxiety">anxiety</a>
-				<a href="#2" class="btn btn-default btn-xs color" data=fear  id="fear">fear</a>
-				<a href="#2" class="btn btn-default btn-xs color" data=love   id="love">love  </a>
-				<a href="#2" class="btn btn-default btn-xs color" data=anger  id="anger">anger </a>
-				<a href="#2" class="btn btn-default btn-xs color" data=sadness  id="sadness">sadness </a>
-				<a href="#2" class="btn btn-default btn-xs color" data=excitement  id="excitement">excitement </a>
-				<a href="#2" class="btn btn-default btn-xs color" data=frustration   id="frustration">frustration  </a>
-				<a href="#2" class="btn btn-default btn-xs color" data=energy   id="energy">energy  </a>
-				<a href="#2" class="btn btn-default btn-xs color" data=hunger   id="hunger">hunger  </a>
-			</div>
-			</div>
+        <p><a class="btn btn-primary btn-lg" href="https://pl.linkedin.com/in/maciejkos" role="button">Learn more about
+            the author »</a></p>
+    </div>
 </div>
-			<div class="row">
-				<div class="col-md-2"><p>Y-axis variable</p></div>
-				<div class="col-md-10">
-				<div class="btnsgraph3">
-					<!--<div class="btnsgraph">-->
-					<a href="#2" class="btn btn-default btn-xs y-axis" data=heart_rate id="heart_rate">heart rate</a>
-					<a href="#2" class="btn btn-default btn-xs y-axis" data=skin_temp id="skin_temp">skin temp</a>
-					<a href="#2" class="btn btn-default btn-xs y-axis" data=steps id="steps">steps</a>
-					<!--<a href="#2" class="btn btn-default btn-xs y-axis" data=intensity id="intensity">intensity</a>-->
-					<!--<a href="#2" class="btn btn-default btn-xs y-axis" data=valence id="valence">valence</a>-->
-					<a href="#2" class="btn btn-default btn-xs y-axis" data=calories id="calories">calories</a>
-					<!--<a href="#2" class="btn btn-default btn-xs y-axis" data=anxiety id="anxiety">anxiety</a>-->
-					<!--<a href="#2" class="btn btn-default btn-xs y-axis" data=fear  id="fear">fear</a>-->
-					<!--<a href="#2" class="btn btn-default btn-xs y-axis" data=love   id="love">love  </a>-->
-					<!--<a href="#2" class="btn btn-default btn-xs y-axis" data=anger  id="anger">anger </a>-->
-					<!--<a href="#2" class="btn btn-default btn-xs y-axis" data=sadness  id="sadness">sadness </a>-->
-					<!--<a href="#2" class="btn btn-default btn-xs y-axis" data=excitement  id="excitement">excitement </a>-->
-					<!--<a href="#2" class="btn btn-default btn-xs y-axis" data=frustration   id="frustration">frustration  </a>-->
-					<!--<a href="#2" class="btn btn-default btn-xs y-axis" data=energy   id="energy">energy  </a>-->
-					<!--<a href="#2" class="btn btn-default btn-xs y-axis" data=hunger   id="hunger">hunger  </a>-->
-				</div>
-			</div>
-			</div>
 
-			<div class="row">
-				<div class="col-md-11">
-					<div class="canvas" id="plot">
-						<div class="custom-tooltip">
-							<p class="dataDescription">heart rate: <span class="dataValue" id="hr"></span></p>
-							<p class="dataDescription">skin temperature: <span class="dataValue" id="skin_temp"></span></p>
-							<p class="dataDescription">steps: <span class="dataValue" id="steps"></span></p>
-							<p class="dataDescription">calories: <span class="dataValue" id="calories"></span></p>
+<div class="container">
+    <div class="row"><h4>Main plot</h4></div>
+    <div class="row"><h5>Select variables</h5></div>
+    <div class="row">
+        <div class="col-md-2"><p>Radius variable</p></div>
+        <div class="col-md-10">
+            <div class="btnsgraph2">
+                <button type="button" class="btn btn-default btn-xs size_" id="heart_rate">heart rate</button>
+                <button type="button" class="btn btn-default btn-xs size_" id="skin_temp">skin temp</button>
+                <button type="button" class="btn btn-default btn-xs size_" id="gsr">gsr</button>
+                <button type="button" class="btn btn-default btn-xs size_" id="steps">steps</button>
+                <button type="button" class="btn btn-default btn-xs size_" id="intensity">intensity</button>
+                <button type="button" class="btn btn-default btn-xs size_" id="valence">valence</button>
+                <button type="button" class="btn btn-default btn-xs size_" id="calories">calories</button>
+                <button type="button" class="btn btn-default btn-xs size_" id="anxiety">anxiety</button>
+                <button type="button" class="btn btn-default btn-xs size_" id="fear">fear</button>
+                <button type="button" class="btn btn-default btn-xs size_" id="love">love</button>
+                <button type="button" class="btn btn-default btn-xs size_" id="anger">anger</button>
+                <button type="button" class="btn btn-default btn-xs size_" id="sadness">sadness</button>
+                <button type="button" class="btn btn-default btn-xs size_" id="excitement">excitement</button>
+                <button type="button" class="btn btn-default btn-xs size_" id="frustration">frustration</button>
+                <button type="button" class="btn btn-default btn-xs size_" id="energy">energy</button>
+                <button type="button" class="btn btn-default btn-xs size_" id="hunger">hunger</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"><p>Color variable</p></div>
+        <div class="col-md-10">
+            <div class="btnsgraph1">
+                <button type="button" class="btn btn-default btn-xs color_" id="heart_rate">heart rate</button>
+                <button type="button" class="btn btn-default btn-xs color_" id="skin_temp">skin temp</button>
+                <button type="button" class="btn btn-default btn-xs color_" id="gsr">gsr</button>
+                <button type="button" class="btn btn-default btn-xs color_" id="steps">steps</button>
+                <button type="button" class="btn btn-default btn-xs color_" id="intensity">intensity</button>
+                <button type="button" class="btn btn-default btn-xs color_" id="valence">valence</button>
+                <button type="button" class="btn btn-default btn-xs color_" id="calories">calories</button>
+                <button type="button" class="btn btn-default btn-xs color_" id="anxiety">anxiety</button>
+                <button type="button" class="btn btn-default btn-xs color_" id="fear">fear</button>
+                <button type="button" class="btn btn-default btn-xs color_" id="love">love</button>
+                <button type="button" class="btn btn-default btn-xs color_" id="anger">anger</button>
+                <button type="button" class="btn btn-default btn-xs color_" id="sadness">sadness</button>
+                <button type="button" class="btn btn-default btn-xs color_" id="excitement">excitement</button>
+                <button type="button" class="btn btn-default btn-xs color_" id="frustration">frustration</button>
+                <button type="button" class="btn btn-default btn-xs color_" id="energy">energy</button>
+                <button type="button" class="btn btn-default btn-xs color_" id="hunger">hunger</button>
+            </div>
+        </div>
+    </div>
 
-							<p class="dataDescription">activity: <span class="dataValue" id="activity"></span></p>
-							<p class="dataDescription">location: <span class="dataValue" id="location"></span></p>
-							<p class="dataDescription">date: <span class="dataValue" id="date"></span></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-1">
-						<p>Max</p><img src="assets/legend.png" class="img-responsive" alt="Legend"><p>Min</p>
-				</div>
-			</div>
+    <div class="row">
+        <div class="col-md-2"><p>Y-axis variable</p></div>
+        <div class="col-md-10">
+            <div class="btnsgraph3">
+                <button type="button" class="btn btn-default btn-xs y-axis_" id="heart_rate">heart rate</button>
+                <button type="button" class="btn btn-default btn-xs y-axis_" id="skin_temp">skin temp</button>
+                <button type="button" class="btn btn-default btn-xs y-axis_" id="gsr">gsr</button>
+                <button type="button" class="btn btn-default btn-xs y-axis_" id="steps">steps</button>
+                <button type="button" class="btn btn-default btn-xs y-axis_" id="calories">calories</button>
 
-				</div>
+            </div>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-11">
+            <div class="canvas" id="plot">
+                <div class="custom-tooltip">
+                    <p class="dataDescription">heart rate: <span class="dataValue" id="hr"></span></p>
 
-	<!--<div class="row">-->
-	<!--<div class="col-md-11">-->
+                    <p class="dataDescription">skin temperature: <span class="dataValue" id="skin_temp"></span></p>
 
+                    <p class="dataDescription">steps: <span class="dataValue" id="steps"></span></p>
 
+                    <p class="dataDescription">calories: <span class="dataValue" id="calories"></span></p>
 
+                    <p class="dataDescription">activity: <span class="dataValue" id="activity"></span></p>
 
-	<!--.container-->
+                    <p class="dataDescription">location: <span class="dataValue" id="location"></span></p>
 
+                    <p class="dataDescription">date: <span class="dataValue" id="date"></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <p>Max</p><img src="assets/legend.png" class="img-responsive" alt="Legend">
 
-		<!-- Scripts -->
-		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-        <script src="lib/queue/queue.min.js"></script>
-        <script src="lib/moment-with-locales.min.js"></script>
-		<script src="script/script4.js"></script>
+            <p>Min</p>
+        </div>
+    </div>
+    <div class="row"><h4>Secondary plot</h4> <p>Brush over the plot to set zoom level and select variables below</p></div>
 
-	</body>
+    <div class="row">
+        <div class="col-md-11">
+            <div class="canvas2" id="plot"></div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div class="row"><h5>Select variables</h5></div>
+    <div class="row">
+        <div class="col-md-2"><p>Radius variable</p></div>
+        <div class="col-md-10">
+            <div class="btnsgraph2">
+                <button type="button" class="btn btn-default btn-xs size" id="_heart_rate">heart rate</button>
+                <button type="button" class="btn btn-default btn-xs size" id="_skin_temp">skin temp</button>
+                <button type="button" class="btn btn-default btn-xs size" id="_gsr">gsr</button>
+                <button type="button" class="btn btn-default btn-xs size" id="_steps">steps</button>
+                <button type="button" class="btn btn-default btn-xs size" id="_intensity">intensity</button>
+                <button type="button" class="btn btn-default btn-xs size" id="_valence">valence</button>
+                <button type="button" class="btn btn-default btn-xs size" id="_calories">calories</button>
+                <button type="button" class="btn btn-default btn-xs size" id="_anxiety">anxiety</button>
+                <button type="button" class="btn btn-default btn-xs size" id="_fear">fear</button>
+                <button type="button" class="btn btn-default btn-xs size" id="_love">love</button>
+                <button type="button" class="btn btn-default btn-xs size" id="_anger">anger</button>
+                <button type="button" class="btn btn-default btn-xs size" id="_sadness">sadness</button>
+                <button type="button" class="btn btn-default btn-xs size" id="_excitement">excitement</button>
+                <button type="button" class="btn btn-default btn-xs size" id="_frustration">frustration</button>
+                <button type="button" class="btn btn-default btn-xs size" id="_energy">energy</button>
+                <button type="button" class="btn btn-default btn-xs size" id="_hunger">hunger</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"><p>Color variable</p></div>
+        <div class="col-md-10">
+            <div class="btnsgraph1">
+                <button type="button" class="btn btn-default btn-xs color" id="_heart_rate">heart rate</button>
+                <button type="button" class="btn btn-default btn-xs color" id="_skin_temp">skin temp</button>
+                <button type="button" class="btn btn-default btn-xs color" id="_gsr">gsr</button>
+                <button type="button" class="btn btn-default btn-xs color" id="_steps">steps</button>
+                <button type="button" class="btn btn-default btn-xs color" id="_intensity">intensity</button>
+                <button type="button" class="btn btn-default btn-xs color" id="_valence">valence</button>
+                <button type="button" class="btn btn-default btn-xs color" id="_calories">calories</button>
+                <button type="button" class="btn btn-default btn-xs color" id="_anxiety">anxiety</button>
+                <button type="button" class="btn btn-default btn-xs color" id="_fear">fear</button>
+                <button type="button" class="btn btn-default btn-xs color" id="_love">love</button>
+                <button type="button" class="btn btn-default btn-xs color" id="_anger">anger</button>
+                <button type="button" class="btn btn-default btn-xs color" id="_sadness">sadness</button>
+                <button type="button" class="btn btn-default btn-xs color" id="_excitement">excitement</button>
+                <button type="button" class="btn btn-default btn-xs color" id="_frustration">frustration</button>
+                <button type="button" class="btn btn-default btn-xs color" id="_energy">energy</button>
+                <button type="button" class="btn btn-default btn-xs color" id="_hunger">hunger</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"><p>Y-axis variable</p></div>
+        <div class="col-md-10">
+            <div class="btnsgraph3">
+                <button type="button" class="btn btn-default btn-xs y-axis" id="_heart_rate">heart rate</button>
+                <button type="button" class="btn btn-default btn-xs y-axis" id="_skin_temp">skin temp</button>
+                <button type="button" class="btn btn-default btn-xs y-axis" id="_gsr">gsr</button>
+                <button type="button" class="btn btn-default btn-xs y-axis" id="_steps">steps</button>
+                <button type="button" class="btn btn-default btn-xs y-axis" id="_calories">calories</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="lib/queue/queue.min.js"></script>
+<script src="lib/moment-with-locales.min.js"></script>
+<script src="script/script4.js"></script>
+
+</body>
 </html>

@@ -1,29 +1,29 @@
 /*Start by setting up the canvas */
-var margin = {t:50,r:100,b:50,l:50};
+var margin = {t: 50, r: 100, b: 50, l: 50};
 var width = document.getElementById('plot').clientWidth - margin.r - margin.l,
     height = document.getElementById('plot').clientHeight - margin.t - margin.b;
 
 var plot = d3.select('.canvas')
     .append('svg')
-    .attr('width',width+margin.r+margin.l)
-    .attr('height',height + margin.t + margin.b)
+    .attr('width', width + margin.r + margin.l)
+    .attr('height', height + margin.t + margin.b)
     .append('g')
-    .attr('class','plotArea')
-    .attr('transform','translate('+margin.l+','+margin.t+')');
+    .attr('class', 'plotArea')
+    .attr('transform', 'translate(' + margin.l + ',' + margin.t + ')');
 
 var plot_main = plot.append('g');
 
-var plotBrush = d3.select('.canvas')
+var plotBrush = d3.select('.canvas2')
     .append('svg')
-    .attr('width',width+margin.r+margin.l)
-    .attr('height',height/4 + margin.t + margin.b)
+    .attr('width', width + margin.r + margin.l)
+    .attr('height', height / 4 + margin.t + margin.b)
     .append('g')
-    .attr('class','brush')
-    .attr('transform','translate('+margin.l+','+margin.t+')');
+    .attr('class', 'brush')
+    .attr('transform', 'translate(' + margin.l + ',' + margin.t + ')');
 
 //Scales
-var startDate = new Date(2015,10,26,5),
-    endDate = new Date(2015,11,3,14);
+var startDate = new Date(2015, 10, 26, 5),
+    endDate = new Date(2015, 11, 3, 14);
 
 
 var plot_extent = d3.map();
@@ -31,29 +31,25 @@ var plot_yVar = d3.map();
 
 
 plot_extent.set(
-    'current_extent', [startDate,endDate]
+    'current_extent', [startDate, endDate]
 );
 extent_init = plot_extent.get('current_extent');
 
-var scaleX = d3.time.scale().domain(extent_init).range([0,width]),
-    scaleY = d3.scale.linear().range([height,0]).domain([0, 168]),
+var scaleX = d3.time.scale().domain(extent_init).range([0, width]),
+    scaleY = d3.scale.linear().range([height, 0]).domain([0, 168]),
     x2 = d3.time.scale().range([0, width]),
-    y2 = d3.scale.linear().range([(height/4), 0]),
+    y2 = d3.scale.linear().range([(height / 4), 0]),
     colorScale = d3.scale.linear().domain([0, 168]).range(["blue", "red"]),
-   // Siqi - I tried with a white mid-point as you suggested but it does not look good
-    //colorScale = d3.scale.linear().domain([0, 89, 168]).range(["blue", "white", "red"]),
-    radiusScale = d3.scale.linear().domain([1, 168]).range([1,10]);
-//whitish (0) to red(100)
-//.range(["#FFD3D3", "#f90000"]); //whitish (0) to red(100)
-//.range(["#c21500", "#ffc500"]); //yellow (0) to red(100)
-
+// Siqi - I tried with a white mid-point as you suggested but it does not look good
+//colorScale = d3.scale.linear().domain([0, 89, 168]).range(["blue", "white", "red"]),
+    radiusScale = d3.scale.linear().domain([1, 168]).range([1, 10]);
 
 x2.domain(extent_init);
 y2.domain([0, 140]);
 var brush = d3.svg.brush()
     .x(x2)
     .on('brushend', brushListener);
-//var colorScale = d3.scale.quantize()
+
 
 //Axis
 var axisX = d3.svg.axis()
@@ -67,8 +63,6 @@ var axisX = d3.svg.axis()
 var axisXhour = d3.svg.axis()
     .scale(scaleX)
     .orient('bottom')
-    //.ticks(d3.time.hour)
-    //.ticks(d3.time.hour, 2)
     .tickFormat(d3.time.format('%H-%M'));
 //.tickSize(5)
 //.ticks(d3.time.week)
@@ -84,104 +78,94 @@ var colorScaleBrush = d3.scale.linear()
     .domain([0, 100])
     .range(["blue", "red"]);
 
-
-plot.append('g').attr('class','axis axis-x-day')
-    .attr('transform','translate(0,'+height+')')
-    .call(axisX);
-plot.append('g').attr('class','axis axis-x-hour')
-    .attr('transform','translate(0,'+height+')')
-    .call(axisXhour);
-plot.append('g').attr('class','axis axis-y')
-    .call(axisY);
-//plot.select('.axis-x-hour')
-//    .selectAll('text');
-    //.attr('transform','rotate(90)translate(-60,0)');
 //Draw axes
+plot.append('g').attr('class', 'axis axis-x-day')
+    .attr('transform', 'translate(0,' + height + ')')
+    .call(axisX);
+plot.append('g').attr('class', 'axis axis-x-hour')
+    .attr('transform', 'translate(0,' + height + ')')
+    .call(axisXhour);
+plot.append('g').attr('class', 'axis axis-y')
+    .call(axisY);
 
-
-//var brush = d3.svg.brush()
-//    .x(x2)
-//    .on("brush", brushed);
-
-//function brushed() {
-//    console.log("BRUSHED!!!!!");
-//    x.domain(brush.empty() ? x2.domain() : brush.extent());
-//    focus.select(".area").attr("d", area);
-//    focus.select(".x.axis").call(xAxis);
-//}
-
-////TODO: Line generator
-//// this results in a function we can use later
-//var lineGenerator = d3.svg.line()
-//    .x(function(d){return scaleX(d.date)})
-//    .y(function(d){return scaleY(d.hr)});
-//
-////TODO: Area generator
-//// this results in a function we can use later
-//var areaGenerator = d3.svg.area()
-//    .x(function(d){ return scaleX(d.date)}) // location on the axis
-//    .y0(height)                             //bottom of the bar
-//    .y1(function(d){ return scaleY(d.hr)})//top of the bar
-//    .interpolate('basis');
-
-// change yVar for plot
+// Main plot variables
+// change y variable for plot
 var plot_yVar = d3.map();
 plot_yVar.set('current_yVar', ['hr']);
 yVar_init = plot_yVar.get('current_yVar');
 
-
-d3.selectAll('.y-axis').on('click',function(){
-    console.log('clicked the y!!!');
+d3.selectAll('.y-axis_').on('click', function () {
+    console.log("button triggered");
     var type = d3.select(this).attr('id');
-    if (type=="heart_rate"){
+    if (type == "heart_rate") {
         plot_yVar.set('current_yVar', ['hr']);
         draw(dataset);
-    }if(type=="skin_temp"){
+    }
+    if (type == "skin_temp") {
         plot_yVar.set('current_yVar', ['temp']);
         draw(dataset);
-    }if(type=="steps"){
+    }
+    if (type == "steps") {
         plot_yVar.set('current_yVar', ['steps']);
         draw(dataset);
-    }if(type=="intensity"){
+    }
+    if (type == "intensity") {
         plot_yVar.set('current_yVar', ['activation']);
         draw(dataset);
-    }if(type=="valence"){
+    }
+    if (type == "gsr") {
+        plot_yVar.set('current_yVar', ['gsr']);
+        draw(dataset);
+    }
+    if (type == "valence") {
         plot_yVar.set('current_yVar', ['valence']);
         draw(dataset);
-    }if(type=="calories"){
+    }
+    if (type == "calories") {
         plot_yVar.set('current_yVar', ['calories']);
         draw(dataset);
-    }if(type=="anxiety"){
+    }
+    if (type == "anxiety") {
         plot_yVar.set('current_yVar', ['anxiety_2']);
         draw(dataset);
-    }if(type=="fear"){
+    }
+    if (type == "fear") {
         plot_yVar.set('current_yVar', ['fear']);
         draw(dataset);
-    }if(type=="envy"){
+    }
+    if (type == "envy") {
         plot_yVar.set('current_yVar', ['envy']);
         draw(dataset);
-    }if(type=="anticipation"){
+    }
+    if (type == "anticipation") {
         plot_yVar.set('current_yVar', ['anticipation']);
         draw(dataset);
-    }if(type=="love"){
+    }
+    if (type == "love") {
         plot_yVar.set('current_yVar', ['love']);
         draw(dataset);
-    }if(type=="anger"){
+    }
+    if (type == "anger") {
         plot_yVar.set('current_yVar', ['anger']);
         draw(dataset);
-    }if(type=="sadness"){
+    }
+    if (type == "sadness") {
         plot_yVar.set('current_yVar', ['sadness']);
         draw(dataset);
-    }if(type=="excitement"){
+    }
+    if (type == "excitement") {
         plot_yVar.set('current_yVar', ['excitement']);
         draw(dataset);
-    }if(type=="frustration"){
+    }
+    if (type == "frustration") {
         plot_yVar.set('current_yVar', ['frustration']);
         draw(dataset);
-    }if(type=="energy"){
+    }
+    if (type == "energy") {
         plot_yVar.set('current_yVar', ['energy']);
         draw(dataset);
-    }if(type=="hunger"){
+    }
+    if (type == "hunger") {
         plot_yVar.set('current_yVar', ['hunger']);
         draw(dataset);
     }
@@ -189,65 +173,82 @@ d3.selectAll('.y-axis').on('click',function(){
 
 });
 
-// change color for plot
+// change color variable for plot
 var plotColorVar = d3.map();
 plotColorVar.set('current_plotColorVar', ['hr']);
 plotColorVar_init = plotColorVar.get('current_plotColorVar');
 
-
-d3.selectAll('.color').on('click',function(){
-    console.log('clicked the colah!!!');
+d3.selectAll('.color_').on('click', function () {
     var type = d3.select(this).attr('id');
-    if (type=="heart_rate"){
+    if (type == "heart_rate") {
         plotColorVar.set('current_plotColorVar', ['hr']);
         draw(dataset);
-    }if(type=="skin_temp"){
+    }
+    if (type == "skin_temp") {
         plotColorVar.set('current_plotColorVar', ['temp']);
         draw(dataset);
-    }if(type=="steps"){
-        console.log('clicked the steps!!!');
+    }
+    if (type == "gsr") {
+        plotColorVar.set('current_plotColorVar', ['gsr']);
+        draw(dataset);
+    }
+    if (type == "steps") {
         plotColorVar.set('current_plotColorVar', ['steps']);
         draw(dataset);
-    }if(type=="intensity"){
+    }
+    if (type == "intensity") {
         plotColorVar.set('current_plotColorVar', ['activation']);
         draw(dataset);
-    }if(type=="valence"){
+    }
+    if (type == "valence") {
         plotColorVar.set('current_plotColorVar', ['valence']);
         draw(dataset);
-    }if(type=="calories"){
+    }
+    if (type == "calories") {
         plotColorVar.set('current_plotColorVar', ['calories']);
         draw(dataset);
-    }if(type=="anxiety"){
+    }
+    if (type == "anxiety") {
         plotColorVar.set('current_plotColorVar', ['anxiety_2']);
         draw(dataset);
-    }if(type=="fear"){
+    }
+    if (type == "fear") {
         plotColorVar.set('current_plotColorVar', ['fear']);
         draw(dataset);
-    }if(type=="envy"){
+    }
+    if (type == "envy") {
         plotColorVar.set('current_plotColorVar', ['envy']);
         draw(dataset);
-    }if(type=="anticipation"){
+    }
+    if (type == "anticipation") {
         plotColorVar.set('current_plotColorVar', ['anticipation']);
         draw(dataset);
-    }if(type=="love"){
+    }
+    if (type == "love") {
         plotColorVar.set('current_plotColorVar', ['love']);
         draw(dataset);
-    }if(type=="anger"){
+    }
+    if (type == "anger") {
         plotColorVar.set('current_plotColorVar', ['anger']);
         draw(dataset);
-    }if(type=="sadness"){
+    }
+    if (type == "sadness") {
         plotColorVar.set('current_plotColorVar', ['sadness']);
         draw(dataset);
-    }if(type=="excitement"){
+    }
+    if (type == "excitement") {
         plotColorVar.set('current_plotColorVar', ['excitement']);
         draw(dataset);
-    }if(type=="frustration"){
+    }
+    if (type == "frustration") {
         plotColorVar.set('current_plotColorVar', ['frustration']);
         draw(dataset);
-    }if(type=="energy"){
+    }
+    if (type == "energy") {
         plotColorVar.set('current_plotColorVar', ['energy']);
         draw(dataset);
-    }if(type=="hunger"){
+    }
+    if (type == "hunger") {
         plotColorVar.set('current_plotColorVar', ['hunger']);
         draw(dataset);
     }
@@ -255,64 +256,82 @@ d3.selectAll('.color').on('click',function(){
 
 });
 
-// change radius for plot
+// change radius variable for plot
 var plotRadiusVar = d3.map();
 plotRadiusVar_init = plotRadiusVar.get('current_plotRadiusVar');
 plotRadiusVar.set('current_plotRadiusVar', ['hr']);
 
-
-
-d3.selectAll('.size').on('click',function(){
+d3.selectAll('.size_').on('click', function () {
     var type = d3.select(this).attr('id');
-    if (type=="heart_rate"){
+    if (type == "heart_rate") {
         plotRadiusVar.set('current_plotRadiusVar', ['hr']);
         draw(dataset);
-    }if(type=="skin_temp"){
+    }
+    if (type == "skin_temp") {
         plotRadiusVar.set('current_plotRadiusVar', ['temp']);
         draw(dataset);
-    }if(type=="steps"){
+    }
+    if (type == "gsr") {
+        plotRadiusVar.set('current_plotRadiusVar', ['gsr']);
+        draw(dataset);
+    }
+    if (type == "steps") {
         plotRadiusVar.set('current_plotRadiusVar', ['steps']);
         draw(dataset);
-    }if(type=="intensity"){
+    }
+    if (type == "intensity") {
         plotRadiusVar.set('current_plotRadiusVar', ['activation']);
         draw(dataset);
-    }if(type=="valence"){
+    }
+    if (type == "valence") {
         plotRadiusVar.set('current_plotRadiusVar', ['valence']);
         draw(dataset);
-    }if(type=="calories"){
+    }
+    if (type == "calories") {
         plotRadiusVar.set('current_plotRadiusVar', ['calories']);
         draw(dataset);
-    }if(type=="anxiety"){
+    }
+    if (type == "anxiety") {
         plotRadiusVar.set('current_plotRadiusVar', ['anxiety_2']);
         draw(dataset);
-    }if(type=="fear"){
+    }
+    if (type == "fear") {
         plotRadiusVar.set('current_plotRadiusVar', ['fear']);
         draw(dataset);
-    }if(type=="envy"){
+    }
+    if (type == "envy") {
         plotRadiusVar.set('current_plotRadiusVar', ['envy']);
         draw(dataset);
-    }if(type=="anticipation"){
+    }
+    if (type == "anticipation") {
         plotRadiusVar.set('current_plotRadiusVar', ['anticipation']);
         draw(dataset);
-    }if(type=="love"){
+    }
+    if (type == "love") {
         plotRadiusVar.set('current_plotRadiusVar', ['love']);
         draw(dataset);
-    }if(type=="anger"){
+    }
+    if (type == "anger") {
         plotRadiusVar.set('current_plotRadiusVar', ['anger']);
         draw(dataset);
-    }if(type=="sadness"){
+    }
+    if (type == "sadness") {
         plotRadiusVar.set('current_plotRadiusVar', ['sadness']);
         draw(dataset);
-    }if(type=="excitement"){
+    }
+    if (type == "excitement") {
         plotRadiusVar.set('current_plotRadiusVar', ['excitement']);
         draw(dataset);
-    }if(type=="frustration"){
+    }
+    if (type == "frustration") {
         plotRadiusVar.set('current_plotRadiusVar', ['frustration']);
         draw(dataset);
-    }if(type=="energy"){
+    }
+    if (type == "energy") {
         plotRadiusVar.set('current_plotRadiusVar', ['energy']);
         draw(dataset);
-    }if(type=="hunger"){
+    }
+    if (type == "hunger") {
         plotRadiusVar.set('current_plotRadiusVar', ['hunger']);
         draw(dataset);
     }
@@ -322,115 +341,331 @@ d3.selectAll('.size').on('click',function(){
 
 
 
+///// Secondary plot (brush) variables
+// change y variable for brush
+var brushyVar = d3.map();
+brushyVar.set('current_brush_yVar', ['hr']);
+brushyVar_init = brushyVar.get('current_brush_yVar');
+
+d3.selectAll('.y-axis').on('click', function () {
+    var type = d3.select(this).attr('id');
+    if (type == "_heart_rate") {
+        brushyVar.set('current_brush_yVar', ['hr']);
+        drawBrush(dataset);
+    }
+    if (type == "_skin_temp") {
+        brushyVar.set('current_brush_yVar', ['temp']);
+        drawBrush(dataset);
+    }
+    if (type == "_steps") {
+        brushyVar.set('current_brush_yVar', ['steps']);
+        drawBrush(dataset);
+    }
+    if (type == "_intensity") {
+        brushyVar.set('current_brush_yVar', ['activation']);
+        drawBrush(dataset);
+    }
+    if (type == "_gsr") {
+        brushyVar.set('current_brush_yVar', ['gsr']);
+        drawBrush(dataset);
+    }
+    if (type == "_valence") {
+        brushyVar.set('current_brush_yVar', ['valence']);
+        drawBrush(dataset);
+    }
+    if (type == "_calories") {
+        brushyVar.set('current_brush_yVar', ['calories']);
+        drawBrush(dataset);
+    }
+    if (type == "_anxiety") {
+        brushyVar.set('current_brush_yVar', ['anxiety_2']);
+        drawBrush(dataset);
+    }
+    if (type == "_fear") {
+        brushyVar.set('current_brush_yVar', ['fear']);
+        drawBrush(dataset);
+    }
+    if (type == "_envy") {
+        brushyVar.set('current_brush_yVar', ['envy']);
+        drawBrush(dataset);
+    }
+    if (type == "_anticipation") {
+        brushyVar.set('current_brush_yVar', ['anticipation']);
+        drawBrush(dataset);
+    }
+    if (type == "_love") {
+        brushyVar.set('current_brush_yVar', ['love']);
+        drawBrush(dataset);
+    }
+    if (type == "_anger") {
+        brushyVar.set('current_brush_yVar', ['anger']);
+        drawBrush(dataset);
+    }
+    if (type == "_sadness") {
+        brushyVar.set('current_brush_yVar', ['sadness']);
+        drawBrush(dataset);
+    }
+    if (type == "_excitement") {
+        brushyVar.set('current_brush_yVar', ['excitement']);
+        drawBrush(dataset);
+    }
+    if (type == "_frustration") {
+        brushyVar.set('current_brush_yVar', ['frustration']);
+        drawBrush(dataset);
+    }
+    if (type == "_energy") {
+        brushyVar.set('current_brush_yVar', ['energy']);
+        drawBrush(dataset);
+    }
+    if (type == "_hunger") {
+        brushyVar.set('current_brush_yVar', ['hunger']);
+        drawBrush(dataset);
+    }
+
+
+});
+
+// change color variable for brush
+var brushColorVar = d3.map();
+brushColorVar.set('current_brushColorVar', ['hr']);
+brushColorVar_init = brushColorVar.get('current_brushColorVar');
+
+d3.selectAll('.color').on('click', function () {
+    var type = d3.select(this).attr('id');
+    if (type == "_heart_rate") {
+        brushColorVar.set('current_brushColorVar', ['hr']);
+        drawBrush(dataset);
+    }
+    if (type == "_skin_temp") {
+        brushColorVar.set('current_brushColorVar', ['temp']);
+        drawBrush(dataset);
+    }
+    if (type == "_gsr") {
+        brushColorVar.set('current_brushColorVar', ['gsr']);
+        drawBrush(dataset);
+    }
+    if (type == "_steps") {
+        brushColorVar.set('current_brushColorVar', ['steps']);
+        drawBrush(dataset);
+    }
+    if (type == "_intensity") {
+        brushColorVar.set('current_brushColorVar', ['activation']);
+        drawBrush(dataset);
+    }
+    if (type == "_valence") {
+        brushColorVar.set('current_brushColorVar', ['valence']);
+        drawBrush(dataset);
+    }
+    if (type == "_calories") {
+        brushColorVar.set('current_brushColorVar', ['calories']);
+        drawBrush(dataset);
+    }
+    if (type == "_anxiety") {
+        brushColorVar.set('current_brushColorVar', ['anxiety_2']);
+        drawBrush(dataset);
+    }
+    if (type == "_fear") {
+        brushColorVar.set('current_brushColorVar', ['fear']);
+        drawBrush(dataset);
+    }
+    if (type == "_envy") {
+        brushColorVar.set('current_brushColorVar', ['envy']);
+        drawBrush(dataset);
+    }
+    if (type == "_anticipation") {
+        brushColorVar.set('current_brushColorVar', ['anticipation']);
+        drawBrush(dataset);
+    }
+    if (type == "_love") {
+        brushColorVar.set('current_brushColorVar', ['love']);
+        drawBrush(dataset);
+    }
+    if (type == "_anger") {
+        brushColorVar.set('current_brushColorVar', ['anger']);
+        drawBrush(dataset);
+    }
+    if (type == "_sadness") {
+        brushColorVar.set('current_brushColorVar', ['sadness']);
+        drawBrush(dataset);
+    }
+    if (type == "_excitement") {
+        brushColorVar.set('current_brushColorVar', ['excitement']);
+        drawBrush(dataset);
+    }
+    if (type == "_frustration") {
+        brushColorVar.set('current_brushColorVar', ['frustration']);
+        drawBrush(dataset);
+    }
+    if (type == "_energy") {
+        brushColorVar.set('current_brushColorVar', ['energy']);
+        drawBrush(dataset);
+    }
+    if (type == "_hunger") {
+        brushColorVar.set('current_brushColorVar', ['hunger']);
+        drawBrush(dataset);
+    }
+
+
+});
+
+// change radius variable for brush
+var brushRadiusVar = d3.map();
+brushRadiusVar.set('current_brushRadiusVar', ['hr']);
+brushRadiusVar_init = brushRadiusVar.get('current_brushRadiusVar');
+
+
+d3.selectAll('.size').on('click', function () {
+
+    var type = d3.select(this).attr('id');
+    if (type == "_heart_rate") {
+
+        brushRadiusVar.set('current_brushRadiusVar', ['hr']);
+        drawBrush(dataset);
+    }
+    if (type == "_skin_temp") {
+        console.log("in skin temp!");
+        brushRadiusVar.set('current_brushRadiusVar', ['temp']);
+        drawBrush(dataset);
+    }
+    if (type == "_gsr") {
+        brushRadiusVar.set('current_brushRadiusVar', ['gsr']);
+        drawBrush(dataset);
+    }
+    if (type == "_steps") {
+        brushRadiusVar.set('current_brushRadiusVar', ['steps']);
+        drawBrush(dataset);
+    }
+    if (type == "_intensity") {
+        brushRadiusVar.set('current_brushRadiusVar', ['activation']);
+        drawBrush(dataset);
+    }
+    if (type == "_valence") {
+        brushRadiusVar.set('current_brushRadiusVar', ['valence']);
+        drawBrush(dataset);
+    }
+    if (type == "_calories") {
+        brushRadiusVar.set('current_brushRadiusVar', ['calories']);
+        drawBrush(dataset);
+    }
+    if (type == "_anxiety") {
+        brushRadiusVar.set('current_brushRadiusVar', ['anxiety_2']);
+        drawBrush(dataset);
+    }
+    if (type == "_fear") {
+        brushRadiusVar.set('current_brushRadiusVar', ['fear']);
+        drawBrush(dataset);
+    }
+    if (type == "_envy") {
+        brushRadiusVar.set('current_brushRadiusVar', ['envy']);
+        drawBrush(dataset);
+    }
+    if (type == "_anticipation") {
+        brushRadiusVar.set('current_brushRadiusVar', ['anticipation']);
+        drawBrush(dataset);
+    }
+    if (type == "_love") {
+        brushRadiusVar.set('current_brushRadiusVar', ['love']);
+        drawBrush(dataset);
+    }
+    if (type == "_anger") {
+        brushRadiusVar.set('current_brushRadiusVar', ['anger']);
+        drawBrush(dataset);
+    }
+    if (type == "_sadness") {
+        brushRadiusVar.set('current_brushRadiusVar', ['sadness']);
+        drawBrush(dataset);
+    }
+    if (type == "_excitement") {
+        brushRadiusVar.set('current_brushRadiusVar', ['excitement']);
+        drawBrush(dataset);
+    }
+    if (type == "_frustration") {
+        brushRadiusVar.set('current_brushRadiusVar', ['frustration']);
+        drawBrush(dataset);
+    }
+    if (type == "_energy") {
+        brushRadiusVar.set('current_brushRadiusVar', ['energy']);
+        drawBrush(dataset);
+    }
+    if (type == "_hunger") {
+        brushRadiusVar.set('current_brushRadiusVar', ['hunger']);
+        drawBrush(dataset);
+    }
+
+
+});
 
 //Import data with queue
 function queueData() {
 
-        queue()
-            //.defer(d3.csv, 'data/merged7daysSinglePoints.csv', parse)
-            .defer(d3.csv, 'data/merged7days.csv', parse)
-            //.defer(d3.csv,'data/Merge3.csv',parse)
-            .await(dataLoaded);
+    queue()
+    //.defer(d3.csv, 'data/merged7daysSinglePoints.csv', parse)
+        .defer(d3.csv, 'data/merged7days.csv', parse)
+        //.defer(d3.csv,'data/Merge3.csv',parse)
+        .await(dataLoaded);
 }
-
-
 
 queueData();
 
-function dataLoaded(error, heartRate){
-//function dataLoaded(error, coffee, tea){
-//    console.log(heartRate.time);
-//    var forDate = heartRate.date;
-//    console.log(forDate);
-    //string.split('/')
-    //console.log(heartRate);
-    //var maxHR = d3.max(pop);
-    //scaleR.domain([0,maxPop]);
+function dataLoaded(error, heartRate) {
 
-
-    dataset = heartRate;
+    dataset = heartRate; // do not remove
     draw(heartRate);
     drawBrush(heartRate);
-    //console.log(heartRate[0].hr);
-
-
 }
 
-
-
 function draw(_data) {
-    //console.log(data);
-    //console.log("start", start);
-    //console.log("end", end);
-    //start = start || startDate;
-    //end = end || endDate;
-//console.log(start,end)
-
-
+    // Let's get start and end data of data from brush
     extent = plot_extent.get('current_extent');
-
     start = extent[0]
     end = extent[1]
 
+    // What variables am I plotting?
     yVar = plot_yVar.get('current_yVar');
     ColorVar = plotColorVar.get('current_plotColorVar');
-    //console.log(yVar);
     RadiusVar = plotRadiusVar.get('current_plotRadiusVar');
 
-    //console.log(_data)
-    //_extent = d3.extent(_data,function(d){
-    //    return d.hr
-    //})
-    //console.log(_data)
-    yVarMax = d3.max(_data, function(d) { return d[yVar]; });
-    ColorVarMax = d3.max(_data, function(d) { return d[ColorVar]; });
+    // Maxes of my variables for scales
+    yVarMax = d3.max(_data, function (d) {
+        return d[yVar];
+    });
+    ColorVarMax = d3.max(_data, function (d) {
+        return d[ColorVar];
+    });
     //ColorVarMed = d3.median(_data, function(d) { return d[ColorVar]; });
-    RadiusVarMax = d3.max(_data, function(d) { return d[RadiusVar]; });
-    //console.log(radiusScale(RadiusVarMax));
-    //console.log(ColorVar);
-    scaleY.domain([0, yVarMax]);
-    colorScale.domain([0, ColorVarMax]);
+    RadiusVarMax = d3.max(_data, function (d) {
+        return d[RadiusVar];
+    });
+
+    // Here I hard code the lower bound of the domain to ignore 0 values which result from
+    // faulty readings of hr, temp. Otherwise I would use d3.min
+    var varMin = {"hr": 40, "temp": 65, "gsr": 0, "calories": 0, "steps": 0};
+
+    function lookupMin(variable) {
+        if (variable in varMin) {
+            return varMin[variable]
+        } else {
+            return 0;
+        }
+    };
+
+    scaleY.domain([lookupMin(yVar), yVarMax]);
+    colorScale.domain([lookupMin(ColorVar), ColorVarMax]);
     //colorScale.domain([0, ColorVarMed, ColorVarMax]);
-    radiusScale.domain[(0,RadiusVarMax)];
+    radiusScale.domain[(lookupMin(RadiusVar), RadiusVarMax)];
     scaleX.domain(extent);
 
-
-    //console.log(start,d3.time.format("%Y-%m-%d")(start))
-
-     //axisXhour
-        //.scale(scaleX)
-        //.tickSize(5)
-        //.ticks(d3.time.hour)
-        //.ticks(d3.time.hour, 2)
-        //.tickValues([8,10,12,14,16,18,19,20,22]);
-
-        //.tickFormat(d3.time.format('%H-%M'));
-    //.tickSize(5)
-    //.ticks(d3.time.week)
-    //.tickFormat(d3.time.format('%Y-%m-%d'));
-    //
-    //.tickFormat( d3.format('d') ); //https://github.com/mbostock/d3/wiki/Formatting
-
-        //axisY.scale(scaleY);
-
-
-
-
     plot.select('.axis-x-day')
-        //.attr('transform','translate(0,'+height+')')
         .call(axisX);
 
     plot.select('.axis-x-hour')
-        //.attr('transform','translate(0,'+height+')')
-        //.selectAll('text')
-        //.attr('transform','rotate(90)translate(0,0)')
         .call(axisXhour);
 
     plot.select('.axis-x-hour')
         .selectAll('text')
-        .attr('transform','rotate(90)')
-        .attr('transform','translate(0,10)');
-        //.call(axisXhour);
+        .attr('transform', 'rotate(90)')
+        .attr('transform', 'translate(0,10)');
+    //.call(axisXhour);
 
     plot.select('.axis-y')
         //.attr('transform','translate(0,'+height+')')
@@ -443,44 +678,44 @@ function draw(_data) {
     //plot.select('.axis-x-hour')
     //    .selectAll('text')
     //    .attr('transform','rotate(90)translate(-60,0)');
-
-
     var nightLines = plot_main.selectAll('.nightLaneLines').data(_data, function (d) {
-            return d.date;
-        });
+        return d.date;
+    });
 
-        var lines_enter = nightLines.enter().append('line').attr('class', 'nightLaneLines');
+    var lines_enter = nightLines.enter().append('line').attr('class', 'nightLaneLines');
+    var lines_exit = nightLines.exit().remove();
 
-        var lines_exit = nightLines.exit().remove();
+    nightLines
+        .attr('x1', function (d) {
+            return scaleX(d.date)
+        })
+        .attr('y1', function (d) {
+            time = moment(d.date, '%ddd %MMM %D %YYYY %H:%mm:%S%Z');
 
-            nightLines
-                .attr('x1', function(d){
-                    return scaleX(d.date)})
-                .attr('y1',  function(d){
-                    time = moment(d.date, '%ddd %MMM %D %YYYY %H:%mm:%S%Z');
+            if (time.hour() > 7 && time.hour() < 23) {
+                return 0;
+            } else {
+                return height;
+            }
+        })
+        //.attr('y1', height)
+        .attr('x2', function (d) {
+            return scaleX(d.date)
+        })
+        .attr('y2', 0)
+        .attr('stroke', "#EBEBEB")
 
-                    if (time.hour() >7 && time.hour() <23 ){
-                        return 0;
-                    } else { return height;}})
-                //.attr('y1', height)
-                .attr('x2', function(d){return scaleX(d.date)})
-                .attr('y2', 0)
-                .attr('stroke', "#EBEBEB")
-
-                .attr('stroke-width', '1');
-
-
+        .attr('stroke-width', '1');
 
     var nodes = plot_main.selectAll('.circles-data-point').data(_data, function (d) {
         return d.date;
     });
 
-
     //enter
     var node_enter = nodes.enter().append('circle').attr('class', 'circles-data-point')
         //.attr('fill', function (d) {return colorScale(d[ColorVar]);})
         .style('fill-opacity', '0.5');
-        //.attr('r', 0);
+    //.attr('r', 0);
 
     //update
     //var node_update = nodes.update().style("color", "red");
@@ -490,38 +725,35 @@ function draw(_data) {
 
     // transitions
     nodes
-        .attr('fill', function (d) {return colorScale(d[ColorVar]);})
-        .attr('location', function (d) { return d.location; })
+        .attr('fill', function (d) {
+            return colorScale(d[ColorVar]);
+        })
+        .attr('location', function (d) {
+            return d.location;
+        })
         .transition().duration(200).attr('cx', function (d) {
-            //Thu Nov 26 2015 05:30:00 GMT-0500 (Eastern Standard Time)
-            //if (moment(d.date).isAfter(start) && moment(d.date).isBefore(end)){
-            //    //if (moment(d.date).isAfter('2015-11-29')) {
-            //    //console.log(moment(d.date));
-            //
-            //    return scaleX(d.date); } else {return scaleX(0);
-            //}
-        return scaleX(d.date);
+            return scaleX(d.date);
         })
 
         //.attr('cy', function (d) {return scaleY(d.getAttribute(yVar));})
         .attr('cy', function (d) {
-            //console.log("DDD>>>", d);
-            //return scaleY(d.hr);})
-            return scaleY(d[yVar]);})
+            return scaleY(d[yVar]);
+        })
         //.attr('cy', function (d) {return scaleY(d.hr);})
         //.attr('r', '5');
-        .attr('r', function(d){
+        .attr('r', function (d) {
 
-                //return d[RadiusVar]})
-                return radiusScale(d[RadiusVar]);});
+            //return d[RadiusVar]})
+            return radiusScale(d[RadiusVar]);
+        });
 
-        //.attr('r', function(d){
-        //    if (d[RadiusVar]*0.1 < 1) {
-        //        return 1;
-        //    } else {return d[RadiusVar]*0.1 }});
+    //.attr('r', function(d){
+    //    if (d[RadiusVar]*0.1 < 1) {
+    //        return 1;
+    //    } else {return d[RadiusVar]*0.1 }});
 
     node_enter
-        .on("mouseenter", function(d) {
+        .on("mouseenter", function (d) {
             var dateParser = d3.time.format('%a %m/%d %H:%M');
             d3.select(this).style('opacity', 1);
             var tooltip = d3.select(".custom-tooltip");
@@ -546,158 +778,143 @@ function draw(_data) {
             tooltip.select("#activity").html(d.activation);
             tooltip.select("#location").html(d.location);
             tooltip.select("#date").html(dateParser(d.date));
-            //console.log("tooltip!");
-         })
-        .on("mouseleave", function(d){
-            d3.select(".custom-tooltip").transition() //hide data from the tooltip
-                .style("opacity",0);
         })
-        .on("mousemove", function(d){
-            d3.select(this).style('opacity',1);
+        .on("mouseleave", function (d) {
+            d3.select(".custom-tooltip").transition() //hide data from the tooltip
+                .style("opacity", 0);
+        })
+        .on("mousemove", function (d) {
+            d3.select(this).style('opacity', 1);
             var xy = d3.mouse(document.getElementById("plot")); // tooltip to move with mouse movements
             var left = xy[0],
                 top = xy[1];
+            // I am changing the position of the tooltip because it moves too slowly
+            // in relation to the mouse pointer. Because of this, it is easy to move the pointer
+            // over the tooltip, which makes the tooltip to stop working.
             d3.select(".custom-tooltip")
-                .style("left", left+50+ "px")
-                .style("top", top +400+ "px")
+                .style("left", left - 200 + "px")
+                .style("top", top - 300 + "px")
         });
 
-
-
-    //plot.selectAll('.circles-data-point')
-    //
-    //    .remove()
-    //    .data(data)
-    //    .enter()
-    //
-    //    .append('circle').attr('class', 'circles-data-point')
-    //    .attr('fill', function (d) {return colorScale(d.valence);})
-    //    .style('fill-opacity', '0.5')
-    //    .attr('cx', function (d) {
-    //        //Thu Nov 26 2015 05:30:00 GMT-0500 (Eastern Standard Time)
-    //        if (moment(d.date).isAfter(start) && moment(d.date).isBefore(end)){
-    //        //if (moment(d.date).isAfter('2015-11-29')) {
-    //            //console.log(moment(d.date));
-    //
-    //        return scaleX(d.date); } else {return scaleX(0);
-    //        }
-    //    })
-    //
-    //    .attr('cy', function (d) {return scaleY(d.hr);})
-    //    .attr('r', 3);
-
-
-
-
-   //drawBrush(data);
 }
 
 function drawBrush(data) {
-    //console.log("drawing brush!");
     plotBrush.selectAll('.brush-circles-data-point')
-        //.data(data.filter(function(d){
-        //        return (d.hr >start && d.hr <end);
-        //return (d.hr >75 && d.hr <90);
-        //}
-        //))
-        .data(data)
-        .enter()
-        //.append('circle').attr('class', 'coffee-data-point data-point')
-        .append('circle').attr('class', 'brush-data-points')
+    // Let's get start and end data of data from brush
+
+    // What variables am I plotting?
+    brush_yVar = brushyVar.get('current_brush_yVar');
+    brush_ColorVar = brushColorVar.get('current_brushColorVar');
+    brush_RadiusVar = brushRadiusVar.get('current_brushRadiusVar');
+    // Maxes of my variables for scales
+    brush_yVarMax = d3.max(data, function (d) {
+        return d[brush_yVar];
+    });
+    brush_ColorVarMax = d3.max(data, function (d) {
+        return d[brush_ColorVar];
+    });
+    brush_RadiusVarMax = d3.max(data, function (d) {
+        return d[brush_RadiusVar];
+    });
+
+    // Here I hard code the lower bound of the domain to ignore 0 values which result from
+    // faulty readings of hr, temp. Otherwise I would use d3.min
+    var varMin = {"hr": 40, "temp": 65, "gsr": 0, "calories": 0, "steps": 0};
+
+    function lookupMin(variable) {
+        if (variable in varMin) {
+            return varMin[variable]
+        } else {
+            return 0;
+        }
+    };
+
+    y2.domain([lookupMin(brush_yVar), brush_yVarMax]);
+    colorScale.domain([lookupMin(brush_ColorVar), brush_ColorVarMax]);
+    //colorScale.domain([0, ColorVarMed, ColorVarMax]);
+    radiusScale.domain[(lookupMin(brush_RadiusVar), brush_RadiusVarMax)];
+    scaleX.domain(extent);
+
+    var _nodes = plotBrush.selectAll('.brush-circles-data-point').data(data, function (d) {
+        return d.date;
+    });
+
+    //enter
+    var _node_enter = _nodes.enter().append('circle').attr('class', 'brush-circles-data-point')
+        .style('fill-opacity', '0.5');
+
+    //exit
+    var _node_exit = _nodes.exit().remove();
+
+    // transitions
+    _nodes
         .attr('fill', function (d) {
-            return colorScaleBrush(d.valence);
-            //return colorScaleBrush(d.valence);
+            return colorScale(d[brush_ColorVar]);
         })
-        .style('fill-opacity', '0.5')
-        .attr('cx', function (d) {
-            //console.log(d.date);
+        .attr('location', function (d) {
+            return d.location;
+        })
+        .transition().duration(200).attr('cx', function (d) {
             return x2(d.date);
         })
 
         .attr('cy', function (d) {
-            return y2(d.hr);
+            return y2(d[brush_yVar]);
         })
-        .attr('r', 3);
+        //.attr('cy', function (d) {return scaleY(d.hr);})
+        //.attr('r', '5');
+        .attr('r', function (d) {
+
+            //return d[RadiusVar]})
+            return (radiusScale(d[brush_RadiusVar])) / 2;
+        });
+
+
     // Create and translate the brush container group
     plotBrush.append('g')
         .attr('class', 'brush');
-        //.attr('transform', function () {
-        //    var dx = margin.l, dy = margin.t;
-        //    return 'translate(' + [dx, dy] + ')';
-        //});
 
 
     var gBrush = plotBrush.select('g.brush').call(brush);
-        gBrush.selectAll('rect')
+    gBrush.selectAll('rect')
         .attr('height', height);
 }
 
 function brushListener() {
-    //console.log("Brushing!!!");
-    //console.log(brush.extent())
+
     var localData = dataset;
     var start = brush.extent()[0],
         end = brush.extent()[1];
 
-    //console.log(start,end)
     _start = d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(start)
     _end = d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(end)
     __start = new Date(_start)
     __end = new Date(_end)
-    console.log(__start,__end)
-    plot_extent.set('current_extent', [__start,__end])
+    plot_extent.set('current_extent', [__start, __end])
 
-    data___ = dataset.filter(function(d){
-        return new Date(d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(d.date)) > start &&  new Date(d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(d.date)) < end ;
+    data___ = dataset.filter(function (d) {
+        return new Date(d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(d.date)) > start && new Date(d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(d.date)) < end;
     })
-       //console.log(d3.event.target.extent()[0]);
-    //d3.select('.axis-x-day').call(axisX);  // this works and updates axis labels
-    //
-    //console.log(start)
-
-    //var _start = moment(start).format("YYYY,M,D,H,m");
-    //var _end = moment(end).format("YYYY,M,D,H,m");
-    //d3.selectAll('.circles-data-point').remove();
-    //var brush_selection = d3.selectAll('.circles-data-point');
     draw(data___);
-    //scaleX.domain([_start, _end]);
-    //d3.selectAll('.axis-x-hour').remove();
-    //d3.select('.axis-x-hour').call(axisXhour);
-
-
-// Filter the items within the brush extent
-//    var items = data.filter(function(d) {
-//        return (s[0] <= d.date) && (d.date<= s[1]);
-//    });
-
 
 }
 
-function parse(d){
-
-    //console.log(d);
-    //console.log(d.Form_start_date);
-    //string.split('/')
+function parse(d) {
     var _date = [d.Form_start_date.split('/')];
     var _time = [d.Form_start_time.split(':')];
-    //var forDate = _date + "," + _time;
     var forDate = _date.concat(_time);
-    //console.log(forDate[1][0]);
-    var finalDate = new Date(forDate[0][2], (forDate[0][0]-1), forDate[0][1],  forDate[1][0], forDate[1][1]);
-    //var finalDate =  Date(year, month, day, hours, minutes, seconds, milliseconds)
-    //console.log(finalDate);
+    var finalDate = new Date(forDate[0][2], (forDate[0][0] - 1), forDate[0][1], forDate[1][0], forDate[1][1]);
+
 
     return {
 
         date: finalDate,
-        //time: d.Form_start_time,
-        //hr: +d.heart-rate,
         hr: +d.heart_rate,
         activation: +d.general_emotion,
         valence: +d.emotion_valence,
-        gsr: +d.gsr*1000000,
+        gsr: +d.gsr * 10,
         temp: +d.skin_temp,
-        calories: +d.calories*10,
+        calories: +d.calories * 10,
         steps: +d.steps,
         anxiety_2: +d.anxiety_2,
         fear: +d.fear,
@@ -720,11 +937,5 @@ function parse(d){
         pain: d.Pain,
         hunger: +d.hunger
 
-    //    item: d.ItemName
-    //    //item: d.ItemName,
-    //    //item: d.ItemName,
-    //    //year: +d.Year,
-    //    //value: +d.Value
     }
 }
-
