@@ -35,6 +35,8 @@ plot_extent.set(
 );
 extent_init = plot_extent.get('current_extent');
 
+// Set up scales
+
 var scaleX = d3.time.scale().domain(extent_init).range([0, width]),
     scaleY = d3.scale.linear().range([height, 0]).domain([0, 168]),
     x2 = d3.time.scale().range([0, width]),
@@ -64,11 +66,7 @@ var axisXhour = d3.svg.axis()
     .scale(scaleX)
     .orient('bottom')
     .tickFormat(d3.time.format('%H-%M'));
-//.tickSize(5)
-//.ticks(d3.time.week)
-//.tickFormat(d3.time.format('%Y-%m-%d'));
-//
-//.tickFormat( d3.format('d') ); //https://github.com/mbostock/d3/wiki/Formatting
+
 var axisY = d3.svg.axis()
     .orient('right')
     .tickSize(width)
@@ -95,7 +93,6 @@ plot_yVar.set('current_yVar', ['hr']);
 yVar_init = plot_yVar.get('current_yVar');
 
 d3.selectAll('.y-axis_').on('click', function () {
-    console.log("button triggered");
     var type = d3.select(this).attr('id');
     if (type == "heart_rate") {
         plot_yVar.set('current_yVar', ['hr']);
@@ -339,8 +336,6 @@ d3.selectAll('.size_').on('click', function () {
 
 });
 
-
-
 ///// Secondary plot (brush) variables
 // change y variable for brush
 var brushyVar = d3.map();
@@ -523,7 +518,6 @@ d3.selectAll('.size').on('click', function () {
         drawBrush(dataset);
     }
     if (type == "_skin_temp") {
-        console.log("in skin temp!");
         brushRadiusVar.set('current_brushRadiusVar', ['temp']);
         drawBrush(dataset);
     }
@@ -665,19 +659,14 @@ function draw(_data) {
         .selectAll('text')
         .attr('transform', 'rotate(90)')
         .attr('transform', 'translate(0,10)');
-    //.call(axisXhour);
 
     plot.select('.axis-y')
-        //.attr('transform','translate(0,'+height+')')
         .call(axisY);
-    //plot.select('.class','axis axis-y')
-    //    .call(axisY);
-    //plot.select('.axis-x-day')
-    //    .selectAll('text')
-    //    .attr('transform','rotate(90)translate(-100,0)');
-    //plot.select('.axis-x-hour')
-    //    .selectAll('text')
-    //    .attr('transform','rotate(90)translate(-60,0)');
+
+
+    // Here I am plotting dark lines to indicate nights
+    // This seems terribly inefficient to plot so many lines
+    // I should fix it at some point
     var nightLines = plot_main.selectAll('.nightLaneLines').data(_data, function (d) {
         return d.date;
     });
@@ -713,12 +702,7 @@ function draw(_data) {
 
     //enter
     var node_enter = nodes.enter().append('circle').attr('class', 'circles-data-point')
-        //.attr('fill', function (d) {return colorScale(d[ColorVar]);})
         .style('fill-opacity', '0.5');
-    //.attr('r', 0);
-
-    //update
-    //var node_update = nodes.update().style("color", "red");
 
     //exit
     var node_exit = nodes.exit().remove();
@@ -735,22 +719,13 @@ function draw(_data) {
             return scaleX(d.date);
         })
 
-        //.attr('cy', function (d) {return scaleY(d.getAttribute(yVar));})
         .attr('cy', function (d) {
             return scaleY(d[yVar]);
         })
-        //.attr('cy', function (d) {return scaleY(d.hr);})
-        //.attr('r', '5');
-        .attr('r', function (d) {
 
-            //return d[RadiusVar]})
+        .attr('r', function (d) {
             return radiusScale(d[RadiusVar]);
         });
-
-    //.attr('r', function(d){
-    //    if (d[RadiusVar]*0.1 < 1) {
-    //        return 1;
-    //    } else {return d[RadiusVar]*0.1 }});
 
     node_enter
         .on("mouseenter", function (d) {
@@ -788,9 +763,7 @@ function draw(_data) {
             var xy = d3.mouse(document.getElementById("plot")); // tooltip to move with mouse movements
             var left = xy[0],
                 top = xy[1];
-            // I am changing the position of the tooltip because it moves too slowly
-            // in relation to the mouse pointer. Because of this, it is easy to move the pointer
-            // over the tooltip, which makes the tooltip to stop working.
+
             d3.select(".custom-tooltip")
                 .style("left", left - 200 + "px")
                 .style("top", top - 300 + "px")
@@ -819,6 +792,7 @@ function drawBrush(data) {
 
     // Here I hard code the lower bound of the domain to ignore 0 values which result from
     // faulty readings of hr, temp. Otherwise I would use d3.min
+    // Ideally, I should filter the earlier
     var varMin = {"hr": 40, "temp": 65, "gsr": 0, "calories": 0, "steps": 0};
 
     function lookupMin(variable) {
@@ -831,7 +805,6 @@ function drawBrush(data) {
 
     y2.domain([lookupMin(brush_yVar), brush_yVarMax]);
     colorScale.domain([lookupMin(brush_ColorVar), brush_ColorVarMax]);
-    //colorScale.domain([0, ColorVarMed, ColorVarMax]);
     radiusScale.domain[(lookupMin(brush_RadiusVar), brush_RadiusVarMax)];
     scaleX.domain(extent);
 
@@ -864,8 +837,6 @@ function drawBrush(data) {
         //.attr('cy', function (d) {return scaleY(d.hr);})
         //.attr('r', '5');
         .attr('r', function (d) {
-
-            //return d[RadiusVar]})
             return (radiusScale(d[brush_RadiusVar])) / 2;
         });
 
@@ -882,7 +853,6 @@ function drawBrush(data) {
 
 function brushListener() {
 
-    var localData = dataset;
     var start = brush.extent()[0],
         end = brush.extent()[1];
 
