@@ -90,6 +90,7 @@ p{
     font-family: "MaisonNeue",sans-serif;
     font-size:12px;
     fill: #666666 !important;
+    opacity: 0;
 }
 .dataDescription {
     font-weight: normal

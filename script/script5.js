@@ -728,9 +728,14 @@ function draw(_data) {
         });
 
     node_enter
+        .on('mouseover', function(d, i) {
+            console.log("over");
+            d3.select(this)
+                .style('stroke', "black")
+                .style('stroke-width', 1);})
+
         .on("mouseenter", function (d) {
             var dateParser = d3.time.format('%a %m/%d %H:%M');
-            d3.select(this).style('opacity', 1);
             var tooltip = d3.select(".custom-tooltip");
             tooltip.transition().style("opacity", 1);
             tooltip.select("#hr").html(d.hr);
@@ -754,7 +759,10 @@ function draw(_data) {
             tooltip.select("#location").html(d.location);
             tooltip.select("#date").html(dateParser(d.date));
         })
+
         .on("mouseleave", function (d) {
+            d3.select(this)
+                .style('stroke-width', 0);
             d3.select(".custom-tooltip").transition() //hide data from the tooltip
                 .style("opacity", 0);
         })
