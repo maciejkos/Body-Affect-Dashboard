@@ -728,11 +728,12 @@ function draw(_data) {
         });
 
     node_enter
-        .on('mouseover', function(d, i) {
+        .on('mouseover', function (d, i) {
             console.log("over");
             d3.select(this)
                 .style('stroke', "black")
-                .style('stroke-width', 1);})
+                .style('stroke-width', 1);
+        })
 
         .on("mouseenter", function (d) {
             var dateParser = d3.time.format('%a %m/%d %H:%M');

@@ -17,9 +17,22 @@
     <div class="container">
         <h1>Body.Affect.Dashboard </h1> (v0.03)
         <p>B.A.D. is an exploratory tool for physiological, affect and context data. </p>
-        <p>The data visualized below contains such body measurements as heart rate, skin temperature, <a href="https://en.wikipedia.org/wiki/Electrodermal_activity">galvanic skin response</a>, number of steps, and number of calories burned. Remaining variables are self-reported measures of my <a href="https://en.wikipedia.org/wiki/Affect_(psychology)">affect</a>, emotions, energy and hunger.</p>
-        <p>Exploration of these data will aid in revealing relationships between human physiology (e.g., heart rate) and emotional states (e.g., anxiety). The long term goal of this project is to learn how to detect extreme emotional states from physiological data collected using unobtrusive <a href="https://en.wikipedia.org/wiki/Wearable_technology">wearable technologies</a>. Such information would help deliver just-in-time health interventions to people with such anxiety-driven conditions as <a href="https://en.wikipedia.org/wiki/Binge_eating_disorder">binge eating disorder</a>.  </p>
-        <p>The data was collected using <a href="http://www.mybasis.com/">Basis Peak</a> and my experience sampling survey deployed
+
+        <p>The data visualized below contains such body measurements as heart rate, skin temperature, <a
+                href="https://en.wikipedia.org/wiki/Electrodermal_activity">galvanic skin response</a>, number of steps,
+            and number of calories burned. Remaining variables are self-reported measures of my <a
+                    href="https://en.wikipedia.org/wiki/Affect_(psychology)">affect</a>, emotions, energy and hunger.
+        </p>
+
+        <p>Exploration of these data will aid in revealing relationships between human physiology (e.g., heart rate) and
+            emotional states (e.g., anxiety). The long term goal of this project is to learn how to detect extreme
+            emotional states from physiological data collected using unobtrusive <a
+                    href="https://en.wikipedia.org/wiki/Wearable_technology">wearable technologies</a>. Such information
+            would help deliver just-in-time health interventions to people with such anxiety-driven conditions as <a
+                    href="https://en.wikipedia.org/wiki/Binge_eating_disorder">binge eating disorder</a>. </p>
+
+        <p>The data was collected using <a href="http://www.mybasis.com/">Basis Peak</a> and my experience sampling
+            survey deployed
             on <a href="https://xs.movisens.com/">movisensXS</a> from November 27th to December 3rd 2015. </p>
 
         <p><a class="btn btn-primary btn-lg" href="https://pl.linkedin.com/in/maciejkos" role="button">Learn more about
@@ -96,11 +109,17 @@
             <div class="canvas" id="plot">
                 <div class="custom-tooltip">
                     <p class="dataDescription">heart rate: <span class="dataValue" id="hr"></span></p>
+
                     <p class="dataDescription">skin temperature: <span class="dataValue" id="skin_temp"></span></p>
+
                     <p class="dataDescription">steps: <span class="dataValue" id="steps"></span></p>
+
                     <p class="dataDescription">calories: <span class="dataValue" id="calories"></span></p>
+
                     <p class="dataDescription">activity: <span class="dataValue" id="activity"></span></p>
+
                     <p class="dataDescription">location: <span class="dataValue" id="location"></span></p>
+
                     <p class="dataDescription">date: <span class="dataValue" id="date"></span></p>
                 </div>
             </div>
@@ -121,71 +140,71 @@
     </div>
     <!--<div class="row"><h5>Select variables</h5></div>-->
     <!--<div class="row">-->
-        <!--<div class="col-md-2"><p>Radius variable</p></div>-->
-        <!--<div class="col-md-10">-->
-            <!--<div class="btnsgraph2">-->
-                <!--<button type="button" class="btn btn-default btn-xs size" id="_heart_rate">heart rate</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs size" id="_skin_temp">skin temp</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs size" id="_gsr">gsr</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs size" id="_steps">steps</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs size" id="_intensity">intensity</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs size" id="_valence">valence</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs size" id="_calories">calories</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs size" id="_anxiety">anxiety</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs size" id="_fear">fear</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs size" id="_love">love</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs size" id="_anger">anger</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs size" id="_sadness">sadness</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs size" id="_excitement">excitement</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs size" id="_frustration">frustration</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs size" id="_energy">energy</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs size" id="_hunger">hunger</button>-->
-            <!--</div>-->
-        <!--</div>-->
+    <!--<div class="col-md-2"><p>Radius variable</p></div>-->
+    <!--<div class="col-md-10">-->
+    <!--<div class="btnsgraph2">-->
+    <!--<button type="button" class="btn btn-default btn-xs size" id="_heart_rate">heart rate</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs size" id="_skin_temp">skin temp</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs size" id="_gsr">gsr</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs size" id="_steps">steps</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs size" id="_intensity">intensity</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs size" id="_valence">valence</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs size" id="_calories">calories</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs size" id="_anxiety">anxiety</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs size" id="_fear">fear</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs size" id="_love">love</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs size" id="_anger">anger</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs size" id="_sadness">sadness</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs size" id="_excitement">excitement</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs size" id="_frustration">frustration</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs size" id="_energy">energy</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs size" id="_hunger">hunger</button>-->
+    <!--</div>-->
+    <!--</div>-->
     <!--</div>-->
     <!--<div class="row">-->
-        <!--<div class="col-md-2"><p>Color variable</p></div>-->
-        <!--<div class="col-md-10">-->
-            <!--<div class="btnsgraph1">-->
-                <!--<button type="button" class="btn btn-default btn-xs color" id="_heart_rate">heart rate</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs color" id="_skin_temp">skin temp</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs color" id="_gsr">gsr</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs color" id="_steps">steps</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs color" id="_intensity">intensity</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs color" id="_valence">valence</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs color" id="_calories">calories</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs color" id="_anxiety">anxiety</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs color" id="_fear">fear</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs color" id="_love">love</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs color" id="_anger">anger</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs color" id="_sadness">sadness</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs color" id="_excitement">excitement</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs color" id="_frustration">frustration</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs color" id="_energy">energy</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs color" id="_hunger">hunger</button>-->
-            <!--</div>-->
-        <!--</div>-->
+    <!--<div class="col-md-2"><p>Color variable</p></div>-->
+    <!--<div class="col-md-10">-->
+    <!--<div class="btnsgraph1">-->
+    <!--<button type="button" class="btn btn-default btn-xs color" id="_heart_rate">heart rate</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs color" id="_skin_temp">skin temp</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs color" id="_gsr">gsr</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs color" id="_steps">steps</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs color" id="_intensity">intensity</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs color" id="_valence">valence</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs color" id="_calories">calories</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs color" id="_anxiety">anxiety</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs color" id="_fear">fear</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs color" id="_love">love</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs color" id="_anger">anger</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs color" id="_sadness">sadness</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs color" id="_excitement">excitement</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs color" id="_frustration">frustration</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs color" id="_energy">energy</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs color" id="_hunger">hunger</button>-->
+    <!--</div>-->
+    <!--</div>-->
     <!--</div>-->
 
     <!--<div class="row">-->
-        <!--<div class="col-md-2"><p>Y-axis variable</p></div>-->
-        <!--<div class="col-md-10">-->
-            <!--<div class="btnsgraph3">-->
-                <!--<button type="button" class="btn btn-default btn-xs y-axis" id="_heart_rate">heart rate</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs y-axis" id="_skin_temp">skin temp</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs y-axis" id="_gsr">gsr</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs y-axis" id="_steps">steps</button>-->
-                <!--<button type="button" class="btn btn-default btn-xs y-axis" id="_calories">calories</button>-->
-            <!--</div>-->
-        <!--</div>-->
+    <!--<div class="col-md-2"><p>Y-axis variable</p></div>-->
+    <!--<div class="col-md-10">-->
+    <!--<div class="btnsgraph3">-->
+    <!--<button type="button" class="btn btn-default btn-xs y-axis" id="_heart_rate">heart rate</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs y-axis" id="_skin_temp">skin temp</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs y-axis" id="_gsr">gsr</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs y-axis" id="_steps">steps</button>-->
+    <!--<button type="button" class="btn btn-default btn-xs y-axis" id="_calories">calories</button>-->
     <!--</div>-->
-<!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
 
-<!-- Scripts -->
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<script src="lib/queue/queue.min.js"></script>
-<script src="lib/moment-with-locales.min.js"></script>
-<script src="script/script5.js"></script>
+    <!-- Scripts -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="lib/queue/queue.min.js"></script>
+    <script src="lib/moment-with-locales.min.js"></script>
+    <script src="script/script5.js"></script>
 
 </body>
 </html>
