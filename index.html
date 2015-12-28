@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
-    <script src="script/jquery-1.11.3.min.js"></script>
-    <script src="lib/crossfilter.min.js"></script>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic' rel='stylesheet' type='text/css'>
+    <script src="script/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap/js/bootstrap.min.js"></script>
+    <!--<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic' rel='stylesheet' type='text/css'>-->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <!--<script type="text/javascript" src="bow"></script>-->
-    <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css"/>
-
+    <link rel="stylesheet" href="bootstrap-multiselect.css" type="text/css"/>
+    <script type="text/javascript" src="bower_components/bootstrap/js/bootstrap-multiselect.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic' rel='stylesheet' type='text/css'>
     <link href="style.css" rel="stylesheet"/>
+
 </head>
 <body>
 
 <div class="jumbotron">
     <div class="container">
-        <h1>Body.Affect.Dashboard </h1> (v0.03)
+        <h1>Body.Affect.Dashboard </h1> (v0.2)
         <p>B.A.D. is an exploratory tool for physiological, affect and context data. </p>
 
         <p>The data visualized below contains such body measurements as heart rate, skin temperature, <a
@@ -40,68 +41,81 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#radius_main').multiselect({buttonWidth: '100px'});
+        $('#color_main').multiselect({buttonWidth: '100px'});
+        $('#y-axis_main').multiselect({buttonWidth: '100px'});
+    });
+</script>
+
 <div class="container">
     <div class="row"><h4>Main plot</h4></div>
     <div class="row"><h5>Select variables</h5></div>
     <div class="row">
-        <div class="col-md-2"><p>Radius variable</p></div>
-        <div class="col-md-10">
-            <div class="btnsgraph2">
-                <button type="button" class="btn btn-default btn-xs size_" id="heart_rate">heart rate</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="skin_temp">skin temp</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="gsr">gsr</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="steps">steps</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="intensity">intensity</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="valence">valence</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="calories">calories</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="anxiety">anxiety</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="fear">fear</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="love">love</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="anger">anger</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="sadness">sadness</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="excitement">excitement</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="frustration">frustration</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="energy">energy</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="hunger">hunger</button>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"><p>Color variable</p></div>
-        <div class="col-md-10">
-            <div class="btnsgraph1">
-                <button type="button" class="btn btn-default btn-xs color_" id="heart_rate">heart rate</button>
-                <button type="button" class="btn btn-default btn-xs color_" id="skin_temp">skin temp</button>
-                <button type="button" class="btn btn-default btn-xs color_" id="gsr">gsr</button>
-                <button type="button" class="btn btn-default btn-xs color_" id="steps">steps</button>
-                <button type="button" class="btn btn-default btn-xs color_" id="intensity">intensity</button>
-                <button type="button" class="btn btn-default btn-xs color_" id="valence">valence</button>
-                <button type="button" class="btn btn-default btn-xs color_" id="calories">calories</button>
-                <button type="button" class="btn btn-default btn-xs color_" id="anxiety">anxiety</button>
-                <button type="button" class="btn btn-default btn-xs color_" id="fear">fear</button>
-                <button type="button" class="btn btn-default btn-xs color_" id="love">love</button>
-                <button type="button" class="btn btn-default btn-xs color_" id="anger">anger</button>
-                <button type="button" class="btn btn-default btn-xs color_" id="sadness">sadness</button>
-                <button type="button" class="btn btn-default btn-xs color_" id="excitement">excitement</button>
-                <button type="button" class="btn btn-default btn-xs color_" id="frustration">frustration</button>
-                <button type="button" class="btn btn-default btn-xs color_" id="energy">energy</button>
-                <button type="button" class="btn btn-default btn-xs color_" id="hunger">hunger</button>
-            </div>
-        </div>
-    </div>
+        <div class="col-md-2"><p>Y-axis variable</p>
 
-    <div class="row">
-        <div class="col-md-2"><p>Y-axis variable</p></div>
-        <div class="col-md-10">
-            <div class="btnsgraph3">
-                <button type="button" class="btn btn-default btn-xs y-axis_" id="heart_rate">heart rate</button>
-                <button type="button" class="btn btn-default btn-xs y-axis_" id="skin_temp">skin temp</button>
-                <button type="button" class="btn btn-default btn-xs y-axis_" id="gsr">gsr</button>
-                <button type="button" class="btn btn-default btn-xs y-axis_" id="steps">steps</button>
-                <button type="button" class="btn btn-default btn-xs y-axis_" id="calories">calories</button>
-
+            <div class="y-axis">
+                <select id="y-axis_main">
+                    <option value="heart_rate">heart rate</option>
+                    <option value="skin_temp">skin temp</option>
+                    <option value="gsr">gsr</option>
+                    <option value="steps">steps</option>
+                    <option value="calories">calories</option>
+                </select>
             </div>
         </div>
+
+        <div class="col-md-2"><p>Radius variable</p>
+
+            <div class="radius">
+                <select id="radius_main">
+                    <option value="heart_rate">heart rate</option>
+                    <option value="skin_temp">skin temp</option>
+                    <option value="gsr">gsr</option>
+                    <option value="steps">steps</option>
+                    <option value="intensity">intensity</option>
+                    <option value="valence">valence</option>
+                    <option value="calories">calories</option>
+                    <option value="anxiety">anxiety</option>
+                    <option value="fear">fear</option>
+                    <option value="love">love</option>
+                    <option value="anger">anger</option>
+                    <option value="sadness">sadness</option>
+                    <option value="excitement">excitement</option>
+                    <option value="frustration">frustration</option>
+                    <option value="energy">energy</option>
+                    <option value="hunger">hunger</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="col-md-2"><p>Color variable</p>
+
+            <div class="color">
+                <select id="color_main">
+                    <option value="heart_rate">heart rate</option>
+                    <option value="skin_temp">skin temp</option>
+                    <option value="gsr">gsr</option>
+                    <option value="steps">steps</option>
+                    <option value="intensity">intensity</option>
+                    <option value="valence">valence</option>
+                    <option value="calories">calories</option>
+                    <option value="anxiety">anxiety</option>
+                    <option value="fear">fear</option>
+                    <option value="love">love</option>
+                    <option value="anger">anger</option>
+                    <option value="sadness">sadness</option>
+                    <option value="excitement">excitement</option>
+                    <option value="frustration">frustration</option>
+                    <option value="energy">energy</option>
+                    <option value="hunger">hunger</option>
+                </select>
+            </div>
+
+        </div>
+
     </div>
 
     <div class="row">
@@ -204,7 +218,25 @@
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="lib/queue/queue.min.js"></script>
     <script src="lib/moment-with-locales.min.js"></script>
-    <script src="script/script5.js"></script>
-
+    <script src="script/script6.js"></script>
+</div>
+<div class="container">
+    <div class="col-md-11">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Acknowledgments</h3>
+            </div>
+            <div class="panel-body">
+                <h5>I would like to thank <a href="https://www.linkedin.com/in/siqi-zhu-aicp-b1b38012">Siqi Zhu </a> and
+                    <a href="https://www.linkedin.com/in/aakhavan">Armin Akhavan</a> for their mentoring and help,
+                    <a href="http://www.ccs.neu.edu/people/faculty/member/pavel-2/">Misha Pavel</a> and
+                    <a href="http://www.ccs.neu.edu/people/faculty/member/jimison/">Holly Jimison</a> for supporting my research and being so understanding,
+                    <a href="http://www.northeastern.edu/camd/artdesign/people/dietmar-offenhuber/">Dietmar Offenhuber</a> for letting me learn more about data visualization, and the fabulous
+                    <a href="http://www.northeastern.edu/visualization/people/">Information Design and Visualization students</a>
+                    for their feedback.</h5>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
