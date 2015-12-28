@@ -2,14 +2,15 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <script src="script/jquery-1.11.3.min.js"></script>
-    <script src="lib/crossfilter.min.js"></script>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic' rel='stylesheet' type='text/css'>
+    <script src="script/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap/js/bootstrap.min.js"></script>
+    <!--<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic' rel='stylesheet' type='text/css'>-->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <!--<script type="text/javascript" src="bow"></script>-->
-    <link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css"/>
-
+    <link rel="stylesheet" href="bootstrap-multiselect.css" type="text/css"/>
+    <script type="text/javascript" src="bower_components/bootstrap/js/bootstrap-multiselect.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic' rel='stylesheet' type='text/css'>
     <link href="style.css" rel="stylesheet"/>
+
 </head>
 <body>
 
@@ -40,32 +41,31 @@
     </div>
 </div>
 
+
+
 <div class="container">
     <div class="row"><h4>Main plot</h4></div>
     <div class="row"><h5>Select variables</h5></div>
     <div class="row">
         <div class="col-md-2"><p>Radius variable</p></div>
         <div class="col-md-10">
-            <div class="btnsgraph2">
-                <button type="button" class="btn btn-default btn-xs size_" id="heart_rate">heart rate</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="skin_temp">skin temp</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="gsr">gsr</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="steps">steps</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="intensity">intensity</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="valence">valence</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="calories">calories</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="anxiety">anxiety</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="fear">fear</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="love">love</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="anger">anger</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="sadness">sadness</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="excitement">excitement</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="frustration">frustration</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="energy">energy</button>
-                <button type="button" class="btn btn-default btn-xs size_" id="hunger">hunger</button>
+
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#radius_main').multiselect();
+                });
+            </script>
+                <div class="radius">
+                    <select id="radius_main">
+                        <option value="heart_rate__"  id="heart_rate">heart rate</option>
+                        <option value="skin_temp__"  id="skin_temp">skin temp</option>
+                        <option value="gsr__"  id="gsr">gsr</option>
+                   </select>
+                    <input type="button" id="btnSelected" value="Get Selected" />
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+
     <div class="row">
         <div class="col-md-2"><p>Color variable</p></div>
         <div class="col-md-10">
@@ -204,7 +204,17 @@
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="lib/queue/queue.min.js"></script>
     <script src="lib/moment-with-locales.min.js"></script>
-    <script src="script/script5.js"></script>
+    <script src="script/script5-implementing-multi.js"></script>
+    <script type="text/javascript">
+        $('#btnSelected').click(function () {
+            var selected = $("#radius_main option:selected");
+            var message = "";
+            selected.each(function () {
+                message += $(this).text() + " " + $(this).val() + "\n";
+            });
+//            alert(message);
+        });
 
+    </script>
 </body>
 </html>

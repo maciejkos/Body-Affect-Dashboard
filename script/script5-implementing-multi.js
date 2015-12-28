@@ -258,8 +258,15 @@ var plotRadiusVar = d3.map();
 plotRadiusVar_init = plotRadiusVar.get('current_plotRadiusVar');
 plotRadiusVar.set('current_plotRadiusVar', ['hr']);
 
-d3.selectAll('.size_').on('click', function () {
-    var type = d3.select(this).attr('id');
+d3.selectAll('.radius').on('click', function () {
+    var selected = $("#radius_main option:selected");
+    console.log("selected");
+    console.log(selected);
+    //console.log("radius");
+    //console.log(this);
+    var type = d3.select(selected).attr('option');
+    //var type = d3.select(this).attr('option:value');
+    console.log(type);
     if (type == "heart_rate") {
         plotRadiusVar.set('current_plotRadiusVar', ['hr']);
         draw(dataset);
