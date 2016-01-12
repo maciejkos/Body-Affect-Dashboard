@@ -36,7 +36,7 @@ plot.append('g').attr('class','axis axis-y')
 // this results in a function we can use later
 var lineGenerator = d3.svg.line()
     .x(function(d){return scaleX(d.year)})
-    .y(function(d){return scaleY(d.value)})
+    .y(function(d){return scaleY(d.value)});
 
 //TODO: Area generator
 // this results in a function we can use later
@@ -66,7 +66,7 @@ function dataLoaded(error, coffee, tea){
         .attr('cy', function(d){
             return scaleY(d.value);
         })
-        .attr('r', 3)
+        .attr('r', 3);
 
     plot.selectAll('.big-circles-data-point')
         .data(tea)
@@ -85,7 +85,7 @@ function dataLoaded(error, coffee, tea){
     plot.append('path')
         .attr('class', 'data-line coffee-data-line')
         .datum(coffee)
-        .attr('d',lineGenerator) // this is geometry of the path
+        .attr('d',lineGenerator); // this is geometry of the path
         //.attr('d',d3.svg.line(function(d)
         //    {return scaleX(d.year), scaleY(d.value)})) // this is geometry of the path
         //
@@ -94,7 +94,7 @@ function dataLoaded(error, coffee, tea){
 
     plot.append('path')
         .attr('class', 'data-line tea-data-line')
-        .datum(tea)
+        .datum(tea);
         //.attr('d',...) // this is geometry of the path
 }
 

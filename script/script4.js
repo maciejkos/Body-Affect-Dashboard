@@ -69,7 +69,7 @@ var axisXhour = d3.svg.axis()
 
 var axisY = d3.svg.axis()
     .orient('right')
-    .tickSize(width)
+    .tickSize(width);
 axisY.scale(scaleY);
 
 var colorScaleBrush = d3.scale.linear()
@@ -611,8 +611,8 @@ function dataLoaded(error, heartRate) {
 function draw(_data) {
     // Let's get start and end data of data from brush
     extent = plot_extent.get('current_extent');
-    start = extent[0]
-    end = extent[1]
+    start = extent[0];
+    end = extent[1];
 
     // What variables am I plotting?
     yVar = plot_yVar.get('current_yVar');
@@ -641,8 +641,7 @@ function draw(_data) {
         } else {
             return 0;
         }
-    };
-
+    }
     scaleY.domain([lookupMin(yVar), yVarMax]);
     colorScale.domain([lookupMin(ColorVar), ColorVarMax]);
     //colorScale.domain([0, ColorVarMed, ColorVarMax]);
@@ -774,7 +773,7 @@ function draw(_data) {
 }
 
 function drawBrush(data) {
-    plotBrush.selectAll('.brush-circles-data-point')
+    plotBrush.selectAll('.brush-circles-data-point');
     // Let's get start and end data of data from brush
 
     // What variables am I plotting?
@@ -815,8 +814,7 @@ function drawBrush(data) {
         } else {
             return 0;
         }
-    };
-
+    }
     y2.domain([lookupMin(brush_yVar), brush_yVarMax]);
     colorScale.domain([lookupMin(brush_ColorVar), brush_ColorVarMax]);
     radiusScale.domain[(lookupMin(brush_RadiusVar), brush_RadiusVarMax)];
@@ -870,15 +868,15 @@ function brushListener() {
     var start = brush.extent()[0],
         end = brush.extent()[1];
 
-    _start = d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(start)
-    _end = d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(end)
-    __start = new Date(_start)
-    __end = new Date(_end)
-    plot_extent.set('current_extent', [__start, __end])
+    _start = d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(start);
+    _end = d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(end);
+    __start = new Date(_start);
+    __end = new Date(_end);
+    plot_extent.set('current_extent', [__start, __end]);
 
     data___ = dataset.filter(function (d) {
         return new Date(d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(d.date)) > start && new Date(d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(d.date)) < end;
-    })
+    });
     draw(data___);
 
 }

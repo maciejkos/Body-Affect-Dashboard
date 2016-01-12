@@ -50,7 +50,7 @@ var areaGenerator = d3.svg.area()
 queue()
     .defer(d3.csv,'data/fao_coffee_world_1963_2013.csv',parse)
     .defer(d3.csv,'data/fao_tea_world_1963_2013.csv',parse)
-    .await(dataLoaded)
+    .await(dataLoaded);
 
 function dataLoaded(err,coffee,tea){
 

@@ -31,8 +31,8 @@ var plot_extent = d3.map();
 
 plot_extent.set(
     'current_extent', [startDate,endDate]
-)
-extent_init = plot_extent.get('current_extent')
+);
+extent_init = plot_extent.get('current_extent');
 
 var scaleX = d3.time.scale().domain(extent_init).range([0,width]),
     scaleY = d3.scale.linear().range([height,0]).domain([0, 168]);
@@ -57,7 +57,7 @@ var axisX = d3.svg.axis()
     .scale(scaleX)
     .innerTickSize(-height)
     //.tickSize(5)
-    .ticks(d3.time.day)
+    .ticks(d3.time.day);
 
     //.tickFormat(d3.time.format('%m/%d'));
 
@@ -68,7 +68,7 @@ var axisXhour = d3.svg.axis()
     .orient('bottom')
     //.ticks(d3.time.hour)
     .ticks(d3.time.hour, 2)
-    .tickFormat(d3.time.format('%H-%M'))
+    .tickFormat(d3.time.format('%H-%M'));
 
 
 //.tickSize(5)
@@ -81,7 +81,7 @@ var axisXhour = d3.svg.axis()
 
 var axisY = d3.svg.axis()
     .orient('right')
-    .tickSize(width)
+    .tickSize(width);
 axisY.scale(scaleY);
 
 var colorScaleBrush = d3.scale.linear()
@@ -173,17 +173,17 @@ function draw(_data) {
 //console.log(start,end)
 
 
-    extent = plot_extent.get('current_extent')
+    extent = plot_extent.get('current_extent');
 
-    start = extent[0]
-    end = extent[1]
+    start = extent[0];
+    end = extent[1];
 
     //console.log(_data)
     //_extent = d3.extent(_data,function(d){
     //    return d.hr
     //})
-    console.log(_data)
-    scaleY.domain([0, 168])
+    console.log(_data);
+    scaleY.domain([0, 168]);
     scaleX.domain(extent);
 
     //console.log(start,d3.time.format("%Y-%m-%d")(start))
@@ -226,7 +226,7 @@ function draw(_data) {
 
     var nodes = plot_main.selectAll('.circles-data-point').data(_data, function (d) {
         return d.date;
-    })
+    });
 
     //enter
     var node_enter = nodes.enter().append('circle').attr('class', 'circles-data-point')
@@ -252,7 +252,7 @@ function draw(_data) {
         .attr('r', function(d){
             if (d.activation*0.1 < 1) {
                 return 1;
-            } else {return d.activation*0.1 }})
+            } else {return d.activation*0.1 }});
         //.attr('r', 3);
         //.style("opacity", d3.scale.linear(function(d){ return d.activation }));
 
@@ -333,16 +333,16 @@ function brushListener() {
         end = brush.extent()[1];
 
     //console.log(start,end)
-    _start = d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(start)
-    _end = d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(end)
-    __start = new Date(_start)
-    __end = new Date(_end)
-    console.log(__start,__end)
-    plot_extent.set('current_extent', [__start,__end])
+    _start = d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(start);
+    _end = d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(end);
+    __start = new Date(_start);
+    __end = new Date(_end);
+    console.log(__start,__end);
+    plot_extent.set('current_extent', [__start,__end]);
 
     data___ = dataset.filter(function(d){
         return new Date(d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(d.date)) > start &&  new Date(d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(d.date)) < end ;
-    })
+    });
        //console.log(d3.event.target.extent()[0]);
     //d3.select('.axis-x-day').call(axisX);  // this works and updates axis labels
     //

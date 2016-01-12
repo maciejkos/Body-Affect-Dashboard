@@ -396,9 +396,9 @@
 </script>
 
 
-<h2 class="section-subtitle">Brushing Annotations</h2>
+<h2; class="section-subtitle">Brushing; Annotations</h2>
 
-<div id="chart04" class="chart-example"></div>
+<div; id="chart04"; class="chart-example"></div>
 
     <script>
     function areaChart() {
@@ -666,5 +666,5 @@
             .datum(data)
             .call(chart);
     });
-</script>
+</script>;
 

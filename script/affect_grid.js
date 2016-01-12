@@ -34,8 +34,8 @@ var plot_extent = d3.map();
 
 plot_extent.set(
     'current_extent', [startDate,endDate]
-)
-extent_init = plot_extent.get('current_extent')
+);
+extent_init = plot_extent.get('current_extent');
 
 var scaleX = d3.scale.linear().range([0, width]).domain([0, 100]),
     scaleY = d3.scale.linear().range([height,0]).domain([0, 100]);
@@ -62,7 +62,7 @@ var axisXhour = d3.svg.axis()
 
 var axisY = d3.svg.axis()
     .orient('right')
-    .tickSize(width)
+    .tickSize(width);
 axisY.scale(scaleY);
 
 var colorScaleBrush = d3.scale.linear()
@@ -122,12 +122,12 @@ function draw(_data) {
     //start = start || startDate;
     //end = end || endDate;
 //console.log(start,end)
-    extent = plot_extent.get('current_extent')
+    extent = plot_extent.get('current_extent');
 
-    start = extent[0]
-    end = extent[1]
+    start = extent[0];
+    end = extent[1];
 
-    console.log(_data)
+    console.log(_data);
     //scaleY.domain([0, 168])
     //scaleX.domain(extent);
 
@@ -137,7 +137,7 @@ function draw(_data) {
 
     var nodes = plot_main.selectAll('.circles-data-point').data(_data, function (d) {
         return d.date;
-    })
+    });
 
     //enter
     var node_enter = nodes.enter().append('circle').attr('class', 'circles-data-point')
@@ -199,16 +199,16 @@ function brushListener() {
         end = brush.extent()[1];
 
     //console.log(start,end)
-    _start = d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(start)
-    _end = d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(end)
-    __start = new Date(_start)
-    __end = new Date(_end)
-    console.log(__start,__end)
-    plot_extent.set('current_extent', [__start,__end])
+    _start = d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(start);
+    _end = d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(end);
+    __start = new Date(_start);
+    __end = new Date(_end);
+    console.log(__start,__end);
+    plot_extent.set('current_extent', [__start,__end]);
 
     data___ = dataset.filter(function(d){
         return new Date(d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(d.date)) > start &&  new Date(d3.time.format('%Y-%m-%dT%H:%M:%S%Z')(d.date)) < end ;
-    })
+    });
 
     draw(data___);
 }
